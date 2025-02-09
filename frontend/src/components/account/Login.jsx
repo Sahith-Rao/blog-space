@@ -43,13 +43,23 @@ const Text = styled(Typography)`
     font-size: 16px;
 `;
 
+const signupInitialValues = {
+    name: '',
+    username: '',
+    password: ''
+}
 
 const Login = () => {
     const imageURL = 'https://cdn-icons-png.flaticon.com/512/10026/10026257.png';
     const [account,toggleAccount] = useState('login');
+    const [signup,setSignup] = useState(signupInitialValues);
     const toggleSignup = () => {
         account === 'signup' ? toggleAccount('login') : toggleAccount('signup');
     }
+    const onInputChange = (e) => {
+        setSignup({ ...signup, [e.target.name]: e.target.value});
+    }
+
     return (
         <Component>
             <Box>
@@ -65,9 +75,9 @@ const Login = () => {
                         </Wrapper> 
                     :
                         <Wrapper>
-                            <TextField variant='filled' label = "Enter Name"/>
-                            <TextField variant='filled' label = "Enter Username"/>
-                            <TextField variant='filled' label = "Enter Password"/>
+                            <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'name' label = "Enter Name"/>
+                            <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'username' label = "Enter Username"/>
+                            <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'password' label = "Enter Password"/>
                             <SignupButton variant='contained'>Signup</SignupButton>
                             <Text>OR</Text>
                             <LoginButton variant='outlined' onClick={() => toggleSignup()}>Already have an account?</LoginButton>
