@@ -39,6 +39,16 @@ const SignupButton = styled(Button)`
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%);
 `;
 
+
+const Error = styled(Typography)`
+    font-size:10px;
+    color: #ff6161;
+    line-height: 0;
+    margin-top: 10px;
+    font-weight: 600;
+`
+
+
 const Text = styled(Typography)`
     color: #878787;
     font-size: 16px;
@@ -54,6 +64,8 @@ const Login = () => {
     const imageURL = 'https://cdn-icons-png.flaticon.com/512/10026/10026257.png';
     const [account,toggleAccount] = useState('login');
     const [signup,setSignup] = useState(signupInitialValues);
+    const [error,setError] = useState('');
+
     const toggleSignup = () => {
         account === 'signup' ? toggleAccount('login') : toggleAccount('signup');
     }
@@ -65,8 +77,11 @@ const Login = () => {
         try {
             let response = await API.userSignup(signup);
             if (response.isSuccess) {
-                console.log("Signup successful:", response.data);
+                setError('');
+                setSignup(signupInitialValues);
+                toggleAccount('login')
             } else {
+                setError('Something went wrong');
                 console.error("Signup failed:", response);
             }
         } catch (error) {
@@ -82,6 +97,7 @@ const Login = () => {
                         <Wrapper>
                             <TextField variant='filled' label = "Enter Username"/>
                             <TextField variant='filled' label = "Enter Password"/>
+                            { error && <Error>{error}</Error>}
                             <LoginButton variant='contained'>Login</LoginButton>
                             <Text>OR</Text>
                             <SignupButton variant='outlined' onClick={() => toggleSignup()}>Create an account</SignupButton>
@@ -91,6 +107,7 @@ const Login = () => {
                             <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'name' label = "Enter Name"/>
                             <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'username' label = "Enter Username"/>
                             <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'password' label = "Enter Password"/>
+                            { error && <Error>{error}</Error>}
                             <SignupButton variant='contained' onClick={()=> signupUser()}>Signup</SignupButton>
                             <Text>OR</Text>
                             <LoginButton variant='outlined' onClick={() => toggleSignup()}>Already have an account?</LoginButton>
