@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box,TextField,Button,styled,Typography } from '@mui/material';
+import { API } from '../../service/api';
 
 const Component = styled(Box)`
     width: 400px;
@@ -60,6 +61,18 @@ const Login = () => {
         setSignup({ ...signup, [e.target.name]: e.target.value});
     }
 
+    const signupUser = async () => {
+        try {
+            let response = await API.userSignup(signup);
+            if (response.isSuccess) {
+                console.log("Signup successful:", response.data);
+            } else {
+                console.error("Signup failed:", response);
+            }
+        } catch (error) {
+            console.error("Error during signup:", error);
+        }
+    };
     return (
         <Component>
             <Box>
@@ -78,7 +91,7 @@ const Login = () => {
                             <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'name' label = "Enter Name"/>
                             <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'username' label = "Enter Username"/>
                             <TextField variant='filled' onChange={(e) => onInputChange(e)} name = 'password' label = "Enter Password"/>
-                            <SignupButton variant='contained'>Signup</SignupButton>
+                            <SignupButton variant='contained' onClick={()=> signupUser()}>Signup</SignupButton>
                             <Text>OR</Text>
                             <LoginButton variant='outlined' onClick={() => toggleSignup()}>Already have an account?</LoginButton>
                         </Wrapper>
