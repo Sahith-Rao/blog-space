@@ -1,18 +1,18 @@
 import Banner from "../banner/Banner";
 import Categories from "./Categories";
-import { Grid } from "@mui/material";
+import { Grid2 } from "@mui/material";
 const Home = () => {
     return (
         <>
             <Banner />
-            <Grid container>
-                <Grid item lg={2} xs={12} sm={2}>
+            <Grid2 container>
+                <Grid2 item lg={2} xs={12} sm={2}>
                     <Categories />
-                </Grid>
-                <Grid container item xs={12} sm={10} lg={10}>
+                </Grid2>
+                <Grid2 container item xs={12} sm={10} lg={10}>
                     Posts 
-                </Grid>
-            </Grid>
+                </Grid2>
+            </Grid2>
         </>
     )
 }
