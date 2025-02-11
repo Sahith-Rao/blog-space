@@ -67,7 +67,7 @@ const signupInitialValues = {
     password: ''
 }
 
-const Login = () => {
+const Login = ( {isUserAuthenticated }) => {
     const imageURL = 'https://cdn-icons-png.flaticon.com/512/10026/10026257.png';
     const [account,toggleAccount] = useState('login');
     const [signup,setSignup] = useState(signupInitialValues);
@@ -114,7 +114,7 @@ const Login = () => {
             sessionStorage.setItem('refreshToken',`Bearer ${response.data.refreshToken}`);
 
             setAccount({username: response.data.username, name: response.data.name})
-
+            isUserAuthenticated(true);
             navigate('/');
         } else {
             setError('Something went wrong');
