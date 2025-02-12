@@ -17,7 +17,7 @@ const StyledButton = styled(Button)`
 const Categories = () => {
     return (
         <>
-            <Link to= '/create'>
+            <Link to= '/create' style = {{ textDecoration: 'none'}}>
                 <StyledButton variant="contained">Create Blog</StyledButton>
             </Link>
             <StyledTable>
