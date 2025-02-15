@@ -1,43 +1,21 @@
-
-import { useState } from 'react';
 import './App.css';
-import DataProvider from './context/DataProvider';
-import {BrowserRouter,Routes,Route, Outlet, Navigate} from 'react-router-dom';
-import Login from './components/account/Login';
-import Home from './components/Home/Home';
-import Header from './components/header/Header';
-import CreatePost from './components/create/CreatePost';
-
-const PrivateRoute = ({isAuthenticated, ...props }) => {
-  return isAuthenticated ?
-  <>
-    <Header />
-    <Outlet />
-  </>
-  : <Navigate replace to='/login' />
-}
+import Header from './Header';
+import Layout from './Layout';
+import IndexPage from './pages/IndexPage';
+import {Route, Routes} from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 function App() {
-  const [isAuthenticated, isUserAuthenticated] = useState(false);
-
   return (
-    <div className="App" style = {{marginTop: 64}}>
-      <DataProvider>
-        <BrowserRouter>
-          <div style = {{marginTop: 64}}>
-            
-            <Routes>
-              <Route path = '/login' element={<Login isUserAuthenticated={isUserAuthenticated}/>} />
-              <Route path = '/' element = {<PrivateRoute isAuthenticated={isAuthenticated} />}>
-                <Route path = '/' element = {<Home />} />
-              </Route>
-              <Route path = '/create' element = {<PrivateRoute isAuthenticated={isAuthenticated} />}>
-                <Route path = '/create' element = {<CreatePost/>} />
-              </Route>
-            </Routes>
-          </div>
-        </BrowserRouter>
-     </DataProvider>
-    </div>
+    <Routes>
+      <Route path = "/" element = {<Layout />}>
+        <Route index element = {<IndexPage />} />
+        <Route path = '/login' element={<LoginPage />} />
+        <Route path = '/register' element={<RegisterPage />} />
+      </Route>
+      
+    </Routes>
+    
   );
 }
 
