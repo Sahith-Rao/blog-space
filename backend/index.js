@@ -6,6 +6,7 @@ const Post = require('./models/Post')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+
 const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/'});
 const fs = require('fs');
@@ -20,6 +21,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads',express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://sahith:sahith22@cluster0.5esp5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
@@ -106,7 +108,7 @@ app.post('/post', uploadMiddleware.single('file'),async (req,res) => {
 })
 
 app.get('/post', async (req,res) => {
-    const posts = await Post.find().populate('author');
+    const posts = await Post.find().populate('author',['username']).sort({createdAt: -1}).limit(20);
     res.json(posts);
 
 })
