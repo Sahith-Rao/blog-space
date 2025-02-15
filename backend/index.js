@@ -50,11 +50,28 @@ app.post('/login', async (req, res) => {
                 httpOnly: true,
                 secure: false,
                 sameSite: 'lax'
-            }).json({ success: true });
+            }).json({
+                id: userDoc._id,
+                username,
+            });
         });
     } else {
         res.status(400).json('Wrong credentials');
     }
 });
 
-app.listen(4000, () => console.log('Server running on port 4000'));
+app.get('/profile', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token , secret, {}, (err,info) => {
+        if (err) throw err;
+        res.json(info);
+    })
+   
+})
+
+
+app.post('/logout', (req,res) => {
+    res.cookie('token','').json('ok');
+})
+
+app.listen(4000);
