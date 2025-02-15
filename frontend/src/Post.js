@@ -1,7 +1,7 @@
+import {format} from 'date-fns';
 
 
-
-export default function Post() {
+export default function Post({title,summary,cover,content,createdAt}) {
 return (
 
       <div className="post">
@@ -10,12 +10,12 @@ return (
             <img src="https://techcrunch.com/wp-content/uploads/2023/01/IMG_2469-Large.jpeg" alt="" />
           </div>
           <div className="texts">
-            <h2>Full house battery checkup</h2>
+            <h2>{title}</h2>
             <p className= "info">
               <a className = "author">David Bosch</a>
-              <time>2025-01-06 16:45</time>
+              <time>{format(new Date(createdAt), 'MMM d, yyyy')}</time>
             </p>
-            <p className = "summary">Today is a special event smksmakcc</p>
+            <p className = "summary">{summary}</p>
           </div>
           
       </div>
