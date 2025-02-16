@@ -102,7 +102,9 @@ app.post('/post', uploadMiddleware.single('file'),async (req,res) => {
     })
 
 
-    
+app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
+    res.json(req.file);
+})
     
     
 })
@@ -119,5 +121,6 @@ app.get('/post/:id', async(req,res) => {
     res.json(postDoc)
 
 })
+
 
 app.listen(4000);
