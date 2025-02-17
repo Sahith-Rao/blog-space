@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { Grid, Container } from "@mui/material";
 import Post from "../Post";
+import styled from "@emotion/styled";
+
+const StyledContainer = styled(Container)`
+    margin-top: 32px;
+`;
 
 export default function IndexPage() {
     const [posts, setPosts] = useState([]);
@@ -12,7 +17,7 @@ export default function IndexPage() {
     }, []);
 
     return (
-        <Container sx={{ marginTop: 4 }}>
+        <StyledContainer>
             <Grid container spacing={4} justifyContent="center">
                 {posts.length > 0 && posts.map(post => (
                     <Grid item xs={12} sm={6} key={post._id}>
@@ -20,6 +25,6 @@ export default function IndexPage() {
                     </Grid>
                 ))}
             </Grid>
-        </Container>
+        </StyledContainer>
     );
 }

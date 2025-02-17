@@ -3,6 +3,44 @@ import { Navigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import { Container, Paper, Typography, TextField, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import styled from "@emotion/styled";
+
+const StyledPaper = styled(Paper)`
+    padding: 48px;
+    margin-top: 20px; // Adjusted margin-top
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #ffffff, #f4f4f9);
+    text-align: center;
+    width: 500px; // Increased width
+    margin: 0 auto; // Ensures centering even with increased width
+`;
+
+
+const StyledTextField = styled(TextField)`
+    & .MuiOutlinedInput-root {
+        border-radius: 12px;
+        background-color: #ffffff;
+    }
+    & .MuiInputLabel-root {
+        color: #3f51b5;
+    }
+`;
+
+const StyledButton = styled(Button)`
+    margin-top: 16px;
+    padding: 14px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #3f51b5, #303f9f);
+    color: white;
+    &:hover {
+        background: linear-gradient(135deg, #303f9f, #1a237e);
+        box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.3);
+    }
+`;
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -34,84 +72,44 @@ export default function LoginPage() {
     }
 
     return (
-        <Container maxWidth="xs">
-            <Paper
-                elevation={6}
-                sx={{
-                    padding: 6,
-                    marginTop: 10,
-                    borderRadius: 4,
-                    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-                    backgroundColor: '#f4f4f9', // Light background color
-                    textAlign: 'center',
-                }}
-            >
-                <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#3f51b5' }}>
-                    Login
+        <Container maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <StyledPaper elevation={6}>
+                <Typography variant="h3" sx={{ fontWeight: 'bold', color: '#3f51b5', marginBottom: 1 }}>
+                    Welcome Back!
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#3f51b5', marginBottom: 2 }}>
+                    Log into your account
                 </Typography>
                 <Box component="form" onSubmit={login} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                    <TextField
+                    <StyledTextField
                         label="Username"
                         variant="outlined"
                         fullWidth
                         value={username}
                         onChange={ev => setUsername(ev.target.value)}
-                        sx={{
-                            '& .MuiOutlinedInput-root': {
-                                borderRadius: '8px',
-                            },
-                            '& .MuiInputLabel-root': {
-                                color: '#3f51b5',
-                            },
-                        }}
                     />
-                    <TextField
+                    <StyledTextField
                         label="Password"
                         type="password"
                         variant="outlined"
                         fullWidth
                         value={password}
                         onChange={ev => setPassword(ev.target.value)}
-                        sx={{
-                            '& .MuiOutlinedInput-root': {
-                                borderRadius: '8px',
-                            },
-                            '& .MuiInputLabel-root': {
-                                color: '#3f51b5',
-                            },
-                        }}
                     />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        sx={{
-                            marginTop: 2,
-                            padding: '12px',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            borderRadius: '8px',
-                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                            '&:hover': {
-                                backgroundColor: '#3f51b5',
-                                boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.3)',
-                            },
-                        }}
-                    >
+                    <StyledButton variant="contained" color="primary" type="submit">
                         Login
-                    </Button>
+                    </StyledButton>
                 </Box>
 
-                {/* Sign up link */}
                 <Box sx={{ marginTop: 2 }}>
-                    <Typography variant="body2">
+                    <Typography variant="body2" sx={{ fontSize: '14px', color: '#3f51b5' }}>
                         Don't have an account?{' '}
-                        <Button component={Link} to="/register" color="primary" sx={{ paddingLeft: 1 }}>
+                        <Button component={Link} to="/register" color="primary" sx={{ paddingLeft: 1, fontSize: '14px', textTransform: 'none' }}>
                             Sign Up
                         </Button>
                     </Typography>
                 </Box>
-            </Paper>
+            </StyledPaper>
         </Container>
     );
 }

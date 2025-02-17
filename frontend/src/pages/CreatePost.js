@@ -1,6 +1,28 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Container, Paper, TextField, Button, Box, Typography } from '@mui/material';
+import styled from "@emotion/styled";
+
+const StyledPaper = styled(Paper)`
+    padding: 32px;
+    margin-top: 48px;
+    border-radius: 12px; /* Increased border-radius for a smoother look */
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    text-align: center;
+    background-color: #fff;
+`;
+
+const StyledButton = styled(Button)`
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    &:hover {
+        background-color: #303f9f;
+        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
+    }
+`;
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');
@@ -34,16 +56,7 @@ export default function CreatePost() {
 
     return (
         <Container maxWidth="sm">
-            <Paper
-                elevation={6}
-                sx={{
-                    padding: 4,
-                    marginTop: 6,
-                    borderRadius: 4,
-                    boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',
-                    textAlign: 'center',
-                }}
-            >
+            <StyledPaper elevation={6}>
                 <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#3f51b5' }}>
                     Create a New Post
                 </Typography>
@@ -54,7 +67,6 @@ export default function CreatePost() {
                         fullWidth
                         value={title}
                         onChange={ev => setTitle(ev.target.value)}
-                        sx={{ borderRadius: '8px' }}
                     />
                     <TextField
                         label="Summary"
@@ -62,10 +74,7 @@ export default function CreatePost() {
                         fullWidth
                         value={summary}
                         onChange={ev => setSummary(ev.target.value)}
-                        sx={{ borderRadius: '8px' }}
                     />
-
-                    {/* File Upload */}
                     <Button
                         variant="contained"
                         component="label"
@@ -74,13 +83,12 @@ export default function CreatePost() {
                             color: 'white',
                             textTransform: 'none',
                             '&:hover': { backgroundColor: '#303f9f' },
+                            marginTop: 1,
                         }}
                     >
                         Upload Cover Image
                         <input type="file" hidden onChange={ev => setFiles(ev.target.files)} />
                     </Button>
-
-                    {/* Text Area for Content */}
                     <TextField
                         label="Content"
                         multiline
@@ -90,27 +98,11 @@ export default function CreatePost() {
                         value={content}
                         onChange={ev => setContent(ev.target.value)}
                     />
-
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            padding: '12px',
-                            fontSize: '16px',
-                            fontWeight: 'bold',
-                            borderRadius: '8px',
-                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-                            '&:hover': {
-                                backgroundColor: '#303f9f',
-                                boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.3)',
-                            },
-                        }}
-                    >
+                    <StyledButton type="submit" variant="contained" color="primary">
                         Create Post
-                    </Button>
+                    </StyledButton>
                 </Box>
-            </Paper>
+            </StyledPaper>
         </Container>
     );
 }

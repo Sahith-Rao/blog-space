@@ -102,11 +102,7 @@ app.post('/post', uploadMiddleware.single('file'),async (req,res) => {
     })
 
 
-app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
-    if (req.file) {
-        res.json({test:4,fileIs:req.file});
-    }
-})
+
     
     
 })

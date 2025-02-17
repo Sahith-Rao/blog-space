@@ -2,56 +2,67 @@ import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
 import { AccessTime, Person } from '@mui/icons-material';
+import styled from "@emotion/styled";
+
+const StyledCard = styled(Card)`
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 12px; /* Increased border-radius for a smoother look */
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+    transition: 0.3s;
+    &:hover {
+        box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2); /* More prominent shadow on hover */
+    }
+`;
+
+const StyledCardMedia = styled(CardMedia)`
+    border-top-left-radius: 12px; /* Rounded corners for the image */
+    border-top-right-radius: 12px;
+    object-fit: cover;
+`;
+
+const StyledTypography = styled(Typography)`
+    font-weight: bold;
+    color: black;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+    &:hover {
+        color: #333;
+    }
+`;
+
+const InfoBox = styled(Box)`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+`;
 
 export default function Post({ _id, title, summary, cover, createdAt, author }) {
     return (
-        <Card
-            sx={{
-                maxWidth: 600,
-                margin: '20px auto',
-                borderRadius: 4,
-                boxShadow: 3,
-                transition: '0.3s',
-                '&:hover': { boxShadow: 6 },
-            }}
-        >
-            {/* Image Section */}
-            <Link to={`/post/${_id}`} style={{ textDecoration: 'none' }}>
-                <CardMedia
+        <StyledCard>
+            <StyledLink to={`/post/${_id}`}>
+                <StyledCardMedia
                     component="img"
                     height="250"
                     image={`http://localhost:4000/${cover}`}
                     alt={title}
-                    sx={{
-                        borderTopLeftRadius: 4,
-                        borderTopRightRadius: 4,
-                        objectFit: 'cover',
-                    }}
                 />
-            </Link>
+            </StyledLink>
 
-            {/* Text Section */}
             <CardContent sx={{ padding: 3 }}>
-                {/* Title with black color */}
-                <Link to={`/post/${_id}`} style={{ textDecoration: 'none' }}>
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            fontWeight: 'bold',
-                            color: 'black', // Changed to black
-                            marginBottom: 1,
-                            transition: 'color 0.3s',
-                            '&:hover': {
-                                color: '#333', // Slightly darker black on hover
-                            },
-                        }}
-                    >
+                <StyledLink to={`/post/${_id}`}>
+                    <StyledTypography variant="h5">
                         {title}
-                    </Typography>
-                </Link>
+                    </StyledTypography>
+                </StyledLink>
 
-                {/* Author and Date Info */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginBottom: 2 }}>
+                <InfoBox>
                     <IconButton size="small" color="primary">
                         <Person fontSize="small" />
                     </IconButton>
@@ -64,17 +75,12 @@ export default function Post({ _id, title, summary, cover, createdAt, author }) 
                     <Typography variant="body2" color="text.secondary">
                         {format(new Date(createdAt), 'MMM d, yyyy')}
                     </Typography>
-                </Box>
+                </InfoBox>
 
-                {/* Summary */}
-                <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ marginBottom: 1.5, lineHeight: 1.6 }}
-                >
+                <Typography variant="body2" color="text.secondary" sx={{ marginBottom: 1.5, lineHeight: 1.6 }}>
                     {summary}
                 </Typography>
             </CardContent>
-        </Card>
+        </StyledCard>
     );
 }

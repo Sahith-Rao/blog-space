@@ -2,13 +2,53 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
 import { AppBar, Toolbar, Typography, Button, Avatar, Box, Stack } from "@mui/material";
+import styled from "@emotion/styled";
+
+const StyledAppBar = styled(AppBar)`
+    position: static;
+    background: linear-gradient(135deg, #3f51b5, #303f9f);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+`;
+
+const StyledToolbar = styled(Toolbar)`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const LogoContainer = styled(Stack)`
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+`;
+
+const StyledTypography = styled(Typography)`
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+`;
+
+const StyledButton = styled(Button)`
+    text-transform: none;
+    border-radius: 12px;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 14px;
+    &:hover {
+        background-color: #303f9f;
+    }
+`;
+
+const UsernameText = styled(Typography)`
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+`;
 
 export default function Header() {
     const { setUserInfo, userInfo } = useContext(UserContext);
-    const navigate = useNavigate(); // useNavigate hook for navigation
-    const location = useLocation(); // useLocation hook to get the current path
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    // Check if the current page is login or register
     const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
     useEffect(() => {
@@ -27,49 +67,47 @@ export default function Header() {
             method: "POST",
         });
         setUserInfo(null);
-        navigate("/login"); // Redirect to login page after logout
+        navigate("/login");
     }
 
     const username = userInfo?.username;
 
-    // If the current page is login or register, don't render the header
     if (isAuthPage) return null;
 
     return (
-        <AppBar position="static" color="primary">
-            <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                {/* Company Logo */}
-                <Stack direction="row" alignItems="center" spacing={1}>
-                    <Avatar src="/logo.png" alt="Company Logo" />
-                    <Typography variant="h6" component={Link} to="/" color="inherit" sx={{ textDecoration: "none" }}>
+        <StyledAppBar>
+            <StyledToolbar>
+                <LogoContainer>
+                    <Avatar src="https://t4.ftcdn.net/jpg/03/49/37/73/360_F_349377375_ffnj0RHK52KsooH7IBdtpjNtdEP7bKM7.jpg" alt="Company Logo" />
+                    <StyledTypography variant="h6" component={Link} to="/">
                         My Blog
-                    </Typography>
-                </Stack>
-
-                {/* Navigation Links */}
+                    </StyledTypography>
+                </LogoContainer>
                 <Box>
                     {username ? (
                         <Stack direction="row" spacing={2} alignItems="center">
-                            <Typography variant="body1">Hello, {username}</Typography>
-                            <Button component={Link} to="/create" variant="contained" color="secondary">
+                            <UsernameText variant="body1">
+                                Hello, {username}
+                            </UsernameText>
+                            <StyledButton component={Link} to="/create" variant="contained" color="secondary">
                                 Create Post
-                            </Button>
-                            <Button variant="outlined" color="inherit" onClick={logout}>
+                            </StyledButton>
+                            <StyledButton variant="outlined" color="inherit" onClick={logout}>
                                 Logout
-                            </Button>
+                            </StyledButton>
                         </Stack>
                     ) : (
                         <Stack direction="row" spacing={2}>
-                            <Button component={Link} to="/login" color="inherit">
+                            <StyledButton component={Link} to="/login" color="inherit">
                                 Login
-                            </Button>
-                            <Button component={Link} to="/register" variant="contained" color="secondary">
+                            </StyledButton>
+                            <StyledButton component={Link} to="/register" variant="contained" color="secondary">
                                 Register
-                            </Button>
+                            </StyledButton>
                         </Stack>
                     )}
                 </Box>
-            </Toolbar>
-        </AppBar>
+            </StyledToolbar>
+        </StyledAppBar>
     );
 }
