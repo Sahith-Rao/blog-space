@@ -28,8 +28,17 @@ export default function CreatePost() {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
-    const [files, setFiles] = useState('');
+    const [files, setFiles] = useState(null);
+    const [preview, setPreview] = useState('');
     const [redirect, setRedirect] = useState(false);
+
+    function handleFileChange(ev) {
+        const file = ev.target.files[0];
+        setFiles(ev.target.files);
+        if (file) {
+            setPreview(URL.createObjectURL(file));
+        }
+    }
 
     async function createNewPost(ev) {
         ev.preventDefault();
@@ -37,7 +46,9 @@ export default function CreatePost() {
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
-        data.set('file', files[0]);
+        if (files) {
+            data.set('file', files[0]);
+        }
 
         const response = await fetch('http://localhost:4000/post', {
             method: 'POST',
@@ -87,8 +98,9 @@ export default function CreatePost() {
                         }}
                     >
                         Upload Cover Image
-                        <input type="file" hidden onChange={ev => setFiles(ev.target.files)} />
+                        <input type="file" hidden onChange={handleFileChange} />
                     </Button>
+                    {preview && <img src={preview} alt="Preview" style={{ width: '100%', marginTop: '10px' }} />}
                     <TextField
                         label="Content"
                         multiline

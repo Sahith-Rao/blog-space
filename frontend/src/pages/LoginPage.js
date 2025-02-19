@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 
 const StyledPaper = styled(Paper)`
     padding: 48px;
-    margin-top: 20px; // Adjusted margin-top
+    margin-top: 40px; // Adjusted margin-top
     border-radius: 12px;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
     background: linear-gradient(135deg, #ffffff, #f4f4f9);

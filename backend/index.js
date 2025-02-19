@@ -2,11 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/User');
-const Post = require('./models/Post')
+const Post = require('./models/Post');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-
 const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/'});
 const fs = require('fs');
@@ -21,7 +20,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads',express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://sahith:sahith22@cluster0.5esp5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
@@ -66,59 +65,81 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/profile', (req,res) => {
-    const {token} = req.cookies;
-    jwt.verify(token , secret, {}, (err,info) => {
+app.get('/profile', (req, res) => {
+    const { token } = req.cookies;
+    jwt.verify(token, secret, {}, (err, info) => {
         if (err) throw err;
         res.json(info);
-    })
-   
-})
+    });
+});
 
+app.post('/logout', (req, res) => {
+    res.cookie('token', '').json('ok');
+});
 
-app.post('/logout', (req,res) => {
-    res.cookie('token','').json('ok');
-})
-
-app.post('/post', uploadMiddleware.single('file'),async (req,res) => {
-    const {originalname,path} = req.file;
+app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
+    const { originalname, path } = req.file;
     const parts = originalname.split('.');
     const ext = parts[parts.length - 1];
-    const newPath= path+'.'+ext
+    const newPath = path + '.' + ext;
     fs.renameSync(path, newPath);
 
-    const {token} = req.cookies;
-    jwt.verify(token , secret, {}, async (err,info) => {
+    const { token } = req.cookies;
+    jwt.verify(token, secret, {}, async (err, info) => {
         if (err) throw err;
-        const {title,summary,content} = req.body;
+        const { title, summary, content } = req.body;
         const postDoc = await Post.create({
-        title,
-        summary,
-        content,
-        cover: newPath,
-        author: info.id,
-    })
+            title,
+            summary,
+            content,
+            cover: newPath,
+            author: info.id,
+        });
         res.json(postDoc);
-    })
+    });
+});
 
-
-
-    
-    
-})
-
-app.get('/post', async (req,res) => {
-    const posts = await Post.find().populate('author',['username']).sort({createdAt: -1}).limit(20);
+app.get('/post', async (req, res) => {
+    const posts = await Post.find().populate('author', ['username']).sort({ createdAt: -1 }).limit(20);
     res.json(posts);
+});
 
-})
-
-app.get('/post/:id', async(req,res) => {
-    const {id} = req.params;
+app.get('/post/:id', async (req, res) => {
+    const { id } = req.params;
     const postDoc = await Post.findById(id).populate('author', ['username']);
-    res.json(postDoc)
+    res.json(postDoc);
+});
 
-})
+app.put('/post/:id', uploadMiddleware.single('file'), async (req, res) => {
+    let newPath = null;
+    if (req.file) {
+        const { originalname, path } = req.file;
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+    }
 
+    const { token } = req.cookies;
+    jwt.verify(token, secret, {}, async (err, info) => {
+        if (err) throw err;
+        const { title, summary, content } = req.body;
+        const postDoc = await Post.findById(req.params.id);
+        if (!postDoc) {
+            return res.status(404).json('Post not found');
+        }
+        if (postDoc.author.toString() !== info.id) {
+            return res.status(403).json('Unauthorized');
+        }
+        postDoc.title = title;
+        postDoc.summary = summary;
+        postDoc.content = content;
+        if (newPath) {
+            postDoc.cover = newPath;
+        }
+        await postDoc.save();
+        res.json(postDoc);
+    });
+});
 
 app.listen(4000);
