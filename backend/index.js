@@ -144,28 +144,29 @@ app.put('/post/:id', uploadMiddleware.single('file'), async (req, res) => {
 });
 
 app.post('/comments/:postId', async (req, res) => {
-    const { token } = req.cookies;
-    jwt.verify(token, secret, {}, async (err, info) => {
-        if (err) return res.status(401).json('Unauthorized');
-        const { content } = req.body;
-        const comment = await Comment.create({ content, author: info.id, post: req.params.postId });
-        await comment.populate('author', ['username']);
-        res.json(comment);
+        const { token } = req.cookies;
+        jwt.verify(token, secret, {}, async (err, info) => {
+            if (err) return res.status(401).json('Unauthorized');
+            const { content } = req.body;
+            const comment = await Comment.create({ content, author: info.id, post: req.params.postId });
+            await comment.populate('author', ['username']);
+            res.json(comment);
+        });
     });
-});
-
-app.get('/comments/:postId', async (req, res) => {
-    const comments = await Comment.find({ post: req.params.postId }).populate('author', ['username']).sort({ createdAt: -1 });
-    res.json(comments);
-});
-
-app.post('/post/:id/like', async (req, res) => {
-    const post = await Post.findById(req.params.id);
-    if (!post) return res.status(404).json('Post not found');
-    post.likes = (post.likes || 0) + 1;
-    await post.save();
-    res.json({ likes: post.likes });
-});
+    
+    app.get('/comments/:postId', async (req, res) => {
+        const comments = await Comment.find({ post: req.params.postId }).populate('author', ['username']).sort({ createdAt: -1 });
+        res.json(comments);
+    });
+    
+    app.post('/post/:id/like', async (req, res) => {
+        const post = await Post.findById(req.params.id);
+        if (!post) return res.status(404).json('Post not found');
+        post.likes = (post.likes || 0) + 1;
+        await post.save();
+        res.json({ likes: post.likes });
+    });
+    
 
 
 app.listen(4000);

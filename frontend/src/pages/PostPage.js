@@ -42,8 +42,15 @@ export default function PostPage() {
     };
 
     const likePost = async () => {
-        await fetch(`http://localhost:4000/post/${id}/like`, { method: 'POST' });
-        setLikes(likes + 1);
+        const response = await fetch(`http://localhost:4000/post/${id}/like`, { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+        if (response.ok) {
+            const data = await response.json();
+            setLikes(data.likes);
+        }
     };
 
     if (!postInfo) return '';
