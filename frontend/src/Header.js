@@ -2,6 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
 import { AppBar, Toolbar, Typography, Button, Avatar, Box, Stack } from "@mui/material";
+import CreateIcon from '@mui/icons-material/Create';
 import styled from "@emotion/styled";
 
 const StyledAppBar = styled(AppBar)`
@@ -78,9 +79,9 @@ export default function Header() {
         <StyledAppBar>
             <StyledToolbar>
                 <LogoContainer>
-                    <Avatar src="https://t4.ftcdn.net/jpg/03/49/37/73/360_F_349377375_ffnj0RHK52KsooH7IBdtpjNtdEP7bKM7.jpg" alt="Company Logo" />
+                    <CreateIcon />
                     <StyledTypography variant="h6" component={Link} to="/index">
-                        My Blog
+                        BlogSpace
                     </StyledTypography>
                 </LogoContainer>
                 <Box>

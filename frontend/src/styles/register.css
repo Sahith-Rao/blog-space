@@ -1,0 +1,90 @@
+.register-container {
+    background-image: url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=2070');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-box {
+    background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 100%);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    text-align: center;
+    color: white;
+}
+
+
+
+.register-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.register-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    color: white;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.register-button {
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6a1b9a, #4a148c);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.register-button:hover {
+    background: #b39ddb;
+}
+
+.login-link {
+    color:  #d1c4e9;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #b39ddb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

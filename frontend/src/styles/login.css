@@ -1,0 +1,106 @@
+/* Background styling */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=2070");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Login box styling */
+  .login-box {
+    background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 100%);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4);
+    width: 90%; /* Adjusted for responsiveness */
+    max-width: 400px; /* Prevent overflow */
+    text-align: center;
+    color: white;
+    box-sizing: border-box; /* Prevent padding overflow */
+  }
+  
+  /* Title and subtitle styling */
+  .login-title {
+    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .login-subtitle {
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: #d1c4e9;
+  }
+  
+  /* Input field container */
+  .input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Icon styling inside input fields */
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #b39ddb;
+    font-size: 20px;
+  }
+  
+  /* Input field styling */
+  .input-field {
+    width: 100%;
+    padding: 14px 14px 14px 45px; /* Extra padding for icon */
+    border: none;
+    border-radius: 12px;
+    background-color: white;
+    color: #2d1b4e;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box; /* Prevent padding overflow */
+  }
+  
+  /* Login button styling */
+  .login-button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6a1b9a, #4a148c);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .login-button:hover {
+    background: linear-gradient(135deg, #4a148c, #2d1b4e);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Signup link styling */
+  .signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #d1c4e9;
+  }
+  
+  .signup-link a {
+    color: #9575cd;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
