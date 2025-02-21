@@ -7,15 +7,14 @@ import styled from "@emotion/styled";
 
 const StyledPaper = styled(Paper)`
     padding: 48px;
-    margin-top: 40px; // Adjusted margin-top
+    margin-top: 40px;
     border-radius: 12px;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
     background: linear-gradient(135deg, #ffffff, #f4f4f9);
     text-align: center;
-    width: 500px; // Increased width
-    margin: 0 auto; // Ensures centering even with increased width
+    width: 500px;
+    margin: 0 auto;
 `;
-
 
 const StyledTextField = styled(TextField)`
     & .MuiOutlinedInput-root {
@@ -68,7 +67,7 @@ export default function LoginPage() {
     }
 
     if (redirect) {
-        return <Navigate to="/" />;
+        return <Navigate to="/index" />;
     }
 
     return (

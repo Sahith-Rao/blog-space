@@ -6,8 +6,8 @@ import styled from "@emotion/styled";
 const StyledPaper = styled(Paper)`
     padding: 32px;
     margin-top: 48px;
-    border-radius: 12px; /* Increased border-radius for a smoother look */
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
     text-align: center;
     background-color: #fff;
 `;
@@ -62,7 +62,7 @@ export default function CreatePost() {
     }
 
     if (redirect) {
-        return <Navigate to="/" />;
+        return <Navigate to="/index" />;
     }
 
     return (

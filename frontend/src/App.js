@@ -1,5 +1,6 @@
 import './App.css';
 import Layout from './Layout';
+import HomePage from './pages/HomePage';
 import IndexPage from './pages/IndexPage';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -21,32 +22,45 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
+  const { userInfo } = useContext(UserContext);
+
   return (
     <UserContextProvider>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<IndexPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          
-          <Route path="/create" element={
-            <ProtectedRoute>
+        {!userInfo ? (
+          <Route path="/" element={<HomePage />} />
+        ) : (
+          <Route path="/" element={<Navigate to="/index" />} />
+        )}
+        <Route path="/index" element={
+          <ProtectedRoute>
+            <Layout />
+            <IndexPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
+        <Route path="/create" element={
+          <ProtectedRoute>
+            <Layout />
               <CreatePost />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/post/:id" element={
-            <ProtectedRoute>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/post/:id" element={
+          <ProtectedRoute>
+            <Layout />
               <PostPage />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/edit/:id" element={
-            <ProtectedRoute>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/edit/:id" element={
+          <ProtectedRoute>
+            <Layout />
               <EditPost />
-            </ProtectedRoute>
-          } />
-        </Route>
+          </ProtectedRoute>
+        } />
       </Routes>
     </UserContextProvider>
   );

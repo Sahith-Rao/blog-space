@@ -79,7 +79,7 @@ export default function Header() {
             <StyledToolbar>
                 <LogoContainer>
                     <Avatar src="https://t4.ftcdn.net/jpg/03/49/37/73/360_F_349377375_ffnj0RHK52KsooH7IBdtpjNtdEP7bKM7.jpg" alt="Company Logo" />
-                    <StyledTypography variant="h6" component={Link} to="/">
+                    <StyledTypography variant="h6" component={Link} to="/index">
                         My Blog
                     </StyledTypography>
                 </LogoContainer>
