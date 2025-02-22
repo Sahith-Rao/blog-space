@@ -64,7 +64,10 @@ export default function PostPage() {
                     <Button variant="outlined" component={Link} to={`/edit/${postInfo._id}`} startIcon={<EditIcon />}>Edit</Button>
                 )}
                 <img src={`http://localhost:4000/${postInfo.cover}`} alt={postInfo.title} style={{ width: '100%' }} />
-                <Typography>{postInfo.content}</Typography>
+                <Typography
+                    component="div"
+                    dangerouslySetInnerHTML={{ __html: postInfo.content }}
+                />
                 <Box>
                     <IconButton onClick={likePost}><ThumbUpIcon /> {likes}</IconButton>
                 </Box>

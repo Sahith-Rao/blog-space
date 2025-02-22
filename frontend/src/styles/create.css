@@ -7,66 +7,113 @@
     border-radius: 12px;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
     text-align: center;
-  }
-  
-  /* Title Styling */
-  .create-post-title {
+}
+
+/* Title Styling */
+.create-post-title {
     font-size: 2rem;
     font-weight: bold;
-    color: #3f51b5;
-    margin-bottom: 20px;
-  }
-  
-  /* Form Styling */
-  .create-post-form {
+    color: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+/* Form Styling */
+.create-post-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-  }
-  
-  .input-field {
+    gap: 32px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.input-label {
+    font-weight: 600;
+    color: #2d1b4e;
+    margin-bottom: 4px;
+}
+
+.input-field {
     padding: 12px;
     border: 2px solid #2d1b4e;
     border-radius: 8px;
     font-size: 1rem;
     width: 100%;
     box-sizing: border-box;
-  }
-  
-  .input-field:focus {
+    color: #333;
+}
+
+.input-field::placeholder {
+    color: #ccc;
+}
+
+.input-field:focus {
     outline: none;
     border-color: #4b2a7b;
-  }
-  
-  /* Upload Button */
-  .upload-button {
-    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
-    color: white;
+}
+
+/* Editor Styling */
+.editor-wrapper {
+    width: 100%;
+    border: 2px solid #2d1b4e;
+    border-radius: 8px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.editor {
+    min-height: 250px;
+    padding: 12px;
+}
+
+.editor::before {
+    content: attr(placeholder);
+    color: #ccc;
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Upload Button */
+.upload-label {
+    background: #f0f0f0;
+    color: #2d1b4e;
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     transition: background 0.3s, box-shadow 0.3s;
-    border: none;
-  }
-  
-  .upload-button:hover {
-    background: #4b2a7b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px dashed #2d1b4e;
+}
+
+.upload-label:hover {
+    background: #e0e0e0;
     box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Preview Image */
-  .preview-image {
+}
+
+.image-upload-icon {
+    font-size: 1.5rem;
+}
+
+/* Preview Image */
+.preview-image {
     width: 100%;
     margin-top: 10px;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Submit Button */
-  .submit-button {
-    background: white;
-    color: #2d1b4e;
+}
+
+/* Submit Button */
+.submit-button {
+    background: linear-gradient(135deg, #4b2a7b, #2d1b4e);
+    color: white;
     padding: 12px;
     font-size: 1rem;
     font-weight: bold;
@@ -75,10 +122,8 @@
     cursor: pointer;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     transition: background 0.3s, color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background: #4b2a7b;
-    color: white;
-  }
-  
+}
+
+.submit-button:hover {
+    opacity: 0.9;
+}
