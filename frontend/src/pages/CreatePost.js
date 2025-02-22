@@ -1,28 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Container, Paper, TextField, Button, Box, Typography } from '@mui/material';
-import styled from "@emotion/styled";
-
-const StyledPaper = styled(Paper)`
-    padding: 32px;
-    margin-top: 48px;
-    border-radius: 12px;
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    background-color: #fff;
-`;
-
-const StyledButton = styled(Button)`
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    &:hover {
-        background-color: #303f9f;
-        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
-    }
-`;
+import '../styles/create.css';
 
 export default function CreatePost() {
     const [title, setTitle] = useState('');
@@ -66,55 +44,38 @@ export default function CreatePost() {
     }
 
     return (
-        <Container maxWidth="sm">
-            <StyledPaper elevation={6}>
-                <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#3f51b5' }}>
-                    Create a New Post
-                </Typography>
-                <Box component="form" onSubmit={createNewPost} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <TextField
-                        label="Title"
-                        variant="outlined"
-                        fullWidth
-                        value={title}
-                        onChange={ev => setTitle(ev.target.value)}
-                    />
-                    <TextField
-                        label="Summary"
-                        variant="outlined"
-                        fullWidth
-                        value={summary}
-                        onChange={ev => setSummary(ev.target.value)}
-                    />
-                    <Button
-                        variant="contained"
-                        component="label"
-                        sx={{
-                            backgroundColor: '#3f51b5',
-                            color: 'white',
-                            textTransform: 'none',
-                            '&:hover': { backgroundColor: '#303f9f' },
-                            marginTop: 1,
-                        }}
-                    >
-                        Upload Cover Image
-                        <input type="file" hidden onChange={handleFileChange} />
-                    </Button>
-                    {preview && <img src={preview} alt="Preview" style={{ width: '100%', marginTop: '10px' }} />}
-                    <TextField
-                        label="Content"
-                        multiline
-                        rows={6}
-                        variant="outlined"
-                        fullWidth
-                        value={content}
-                        onChange={ev => setContent(ev.target.value)}
-                    />
-                    <StyledButton type="submit" variant="contained" color="primary">
-                        Create Post
-                    </StyledButton>
-                </Box>
-            </StyledPaper>
-        </Container>
+        <div className="create-post-container">
+            <h2 className="create-post-title">Create New Post</h2>
+            <form onSubmit={createNewPost} className="create-post-form">
+                <input
+                    type="text"
+                    placeholder="Enter post title"
+                    className="input-field"
+                    value={title}
+                    onChange={ev => setTitle(ev.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Enter post summary"
+                    className="input-field"
+                    value={summary}
+                    onChange={ev => setSummary(ev.target.value)}
+                />
+                
+                <textarea
+                    placeholder="Enter post content"
+                    className="input-field"
+                    rows="6"
+                    value={content}
+                    onChange={ev => setContent(ev.target.value)}
+                ></textarea>
+                <label className="upload-button">
+                    Upload Cover Image
+                    <input type="file" hidden onChange={handleFileChange} />
+                </label>
+                {preview && <img src={preview} alt="Preview" className="preview-image" />}
+                <button type="submit" className="submit-button">Create Post</button>
+            </form>
+        </div>
     );
 }

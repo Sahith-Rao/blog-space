@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { UserContext } from '../UserContext';
+import { TextField } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import '../styles/login.css';
@@ -42,7 +43,7 @@ export default function LoginPage() {
                 <form className="login-form" onSubmit={login}>
                     <div className="input-wrapper">
                         <PersonIcon className="input-icon" />
-                        <input
+                        <TextField
                             type="text"
                             className="input-field"
                             placeholder="Username"
@@ -53,7 +54,7 @@ export default function LoginPage() {
                     </div>
                     <div className="input-wrapper">
                         <LockIcon className="input-icon" />
-                        <input
+                        <TextField
                             type="password"
                             className="input-field"
                             placeholder="Password"

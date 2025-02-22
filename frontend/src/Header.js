@@ -1,49 +1,11 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
-import { AppBar, Toolbar, Typography, Button, Avatar, Box, Stack } from "@mui/material";
 import CreateIcon from '@mui/icons-material/Create';
-import styled from "@emotion/styled";
-
-const StyledAppBar = styled(AppBar)`
-    position: static;
-    background: linear-gradient(135deg, #3f51b5, #303f9f);
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-`;
-
-const StyledToolbar = styled(Toolbar)`
-    display: flex;
-    justify-content: space-between;
-`;
-
-const LogoContainer = styled(Stack)`
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-`;
-
-const StyledTypography = styled(Typography)`
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-`;
-
-const StyledButton = styled(Button)`
-    text-transform: none;
-    border-radius: 12px;
-    font-weight: bold;
-    padding: 10px 20px;
-    font-size: 14px;
-    &:hover {
-        background-color: #303f9f;
-    }
-`;
-
-const UsernameText = styled(Typography)`
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-`;
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddIcon from '@mui/icons-material/Add';
+import PersonSharpIcon from '@mui/icons-material/PersonSharp';
+import './styles/header.css';
 
 export default function Header() {
     const { setUserInfo, userInfo } = useContext(UserContext);
@@ -76,39 +38,37 @@ export default function Header() {
     if (isAuthPage) return null;
 
     return (
-        <StyledAppBar>
-            <StyledToolbar>
-                <LogoContainer>
-                    <CreateIcon />
-                    <StyledTypography variant="h6" component={Link} to="/index">
-                        BlogSpace
-                    </StyledTypography>
-                </LogoContainer>
-                <Box>
-                    {username ? (
-                        <Stack direction="row" spacing={2} alignItems="center">
-                            <UsernameText variant="body1">
-                                Hello, {username}
-                            </UsernameText>
-                            <StyledButton component={Link} to="/create" variant="contained" color="secondary">
-                                Create Post
-                            </StyledButton>
-                            <StyledButton variant="outlined" color="inherit" onClick={logout}>
-                                Logout
-                            </StyledButton>
-                        </Stack>
-                    ) : (
-                        <Stack direction="row" spacing={2}>
-                            <StyledButton component={Link} to="/login" color="inherit">
-                                Login
-                            </StyledButton>
-                            <StyledButton component={Link} to="/register" variant="contained" color="secondary">
-                                Register
-                            </StyledButton>
-                        </Stack>
-                    )}
-                </Box>
-            </StyledToolbar>
-        </StyledAppBar>
+        <header className="header">
+            <div className="logo-container">
+                <CreateIcon className="logo-icon" />
+                <Link to="/index" className="logo-text">BlogSpace</Link>
+            </div>
+            <nav className="nav-links">
+                {username ? (
+                    <div className="user-actions">
+                        
+                        <Link to="/create" className="nav-button create-post">
+                            <AddIcon /> Create Post
+                        </Link>
+                        <button className="nav-button user-info">
+                            <PersonSharpIcon />
+                            <span className="username"> {username}</span>
+                        </button>
+                        <button onClick={logout} className="nav-button logout-button">
+                            <LogoutIcon /> Logout
+                        </button>
+                    </div>
+                ) : (
+                    <div className="auth-buttons">
+                        <Link to="/login" className="nav-button login-button">
+                            <PersonSharpIcon /> Login
+                        </Link>
+                        <Link to="/register" className="nav-button register-button">
+                            <PersonSharpIcon /> Register
+                        </Link>
+                    </div>
+                )}
+            </nav>
+        </header>
     );
 }

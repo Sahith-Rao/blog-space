@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { TextField } from '@mui/material';
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import "../styles/register.css";
@@ -35,7 +36,7 @@ export default function RegisterPage() {
                 <form className="register-form" onSubmit={register}>
                     <div className="input-container">
                         <PersonIcon className="input-icon" />
-                        <input
+                        <TextField
                             type="text"
                             className="input-field"
                             placeholder="Username"
@@ -46,7 +47,7 @@ export default function RegisterPage() {
                     </div>
                     <div className="input-container">
                         <LockIcon className="input-icon" />
-                        <input
+                        <TextField
                             type="password"
                             className="input-field"
                             placeholder="Password"

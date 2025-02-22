@@ -1,0 +1,118 @@
+/* header.css */
+
+/* Header container */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem; /* Increased space from left and right ends */
+  background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 65px; /* Slightly decreased height */
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  font-size: 2rem; /* Adjusted icon size */
+  color: white;
+}
+
+.logo-text {
+  font-size: 1.5rem; /* Adjusted text size */
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.logo-text:hover {
+  color: #ddd;
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Increased space between buttons */
+}
+
+/* User actions and auth buttons */
+.user-actions,
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Increased space between buttons */
+}
+
+/* Navigation buttons */
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem; /* Slightly larger buttons */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  color: white;
+  border: none;
+  border-radius: 15px; /* Increased border radius */
+  font-size: 1rem; /* Normal font size */
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
+}
+
+/* User info button */
+.user-info {
+  background: transparent;
+  color: white;
+  
+}
+
+
+
+/* Create post button */
+.create-post {
+  background: #6a1b9a; /* Purple shade that blends with the header */
+  color: white;
+}
+
+.create-post:hover {
+  background:#fff;
+  color: #000; /* Brighter purple on hover */
+}
+
+/* Logout button */
+.logout-button {
+  background: #fff; /* Deep red that complements the header */
+  color: #000;
+}
+
+.logout-button:hover {
+  background: #f44336; /* Brighter red on hover */
+}
+
+/* Login and Register buttons */
+.login-button,
+.register-button {
+  background: #2196f3; /* Blue for auth buttons */
+  color: white;
+}
+
+.login-button:hover,
+.register-button:hover {
+  background: #1e88e5; /* Darker blue on hover */
+}
+
+/* Username text */
+.username {
+  font-weight: bold;
+}
