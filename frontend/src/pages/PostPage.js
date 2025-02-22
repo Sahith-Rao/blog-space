@@ -1,10 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
-import { formatISO9075 } from "date-fns";
+import { format } from "date-fns";
 import { UserContext } from '../UserContext';
-import { Container, Paper, Typography, Box, Button, TextField, IconButton } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import '../styles/postpage.css';
 
 export default function PostPage() {
     const [postInfo, setPostInfo] = useState(null);
@@ -42,7 +44,7 @@ export default function PostPage() {
     };
 
     const likePost = async () => {
-        const response = await fetch(`http://localhost:4000/post/${id}/like`, { 
+        const response = await fetch(`http://localhost:4000/post/${id}/like`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -56,31 +58,46 @@ export default function PostPage() {
     if (!postInfo) return '';
 
     return (
-        <Container maxWidth="md">
-            <Paper elevation={6} style={{ padding: 20 }}>
-                <Typography variant="h4">{postInfo.title}</Typography>
-                <Typography variant="body2">{formatISO9075(new Date(postInfo.createdAt))} | by {postInfo.author.username}</Typography>
-                {userInfo.id === postInfo.author._id && (
-                    <Button variant="outlined" component={Link} to={`/edit/${postInfo._id}`} startIcon={<EditIcon />}>Edit</Button>
-                )}
-                <img src={`http://localhost:4000/${postInfo.cover}`} alt={postInfo.title} style={{ width: '100%' }} />
-                <Typography
-                    component="div"
-                    dangerouslySetInnerHTML={{ __html: postInfo.content }}
-                />
-                <Box>
-                    <IconButton onClick={likePost}><ThumbUpIcon /> {likes}</IconButton>
-                </Box>
-                <Box>
-                    <TextField fullWidth value={newComment} onChange={(e) => setNewComment(e.target.value)} label="Add a comment" variant="outlined" />
-                    <Button onClick={addComment}>Comment</Button>
-                </Box>
-                {comments.map(comment => (
-                    <Box key={comment._id}>
-                        <Typography><strong>{comment.author.username}</strong>: {comment.content}</Typography>
-                    </Box>
-                ))}
-            </Paper>
-        </Container>
+        <div className="post-container">
+            <div className="post-content">
+                <h1 className="post-title">{postInfo.title}</h1>
+                <div className="post-meta-edit">
+                    <p className="post-meta">
+                        {format(new Date(postInfo.createdAt), 'MMMM d, yyyy')} |  
+                        <PersonIcon className="icon" /> {postInfo.author.username}
+                    </p>
+                    {userInfo.id === postInfo.author._id && (
+                        <Link to={`/edit/${postInfo._id}`} className="edit-button">
+                            <EditIcon className="icon" /> Edit Post
+                        </Link>
+                    )}
+                </div>
+                <img src={`http://localhost:4000/${postInfo.cover}`} alt={postInfo.title} className="post-image" />
+                <div className="post-body" dangerouslySetInnerHTML={{ __html: postInfo.content }}></div>
+                
+                <div className="comments-section">
+                    <h2 className="comments-title">Comments</h2>
+                    <div className="comment-input">
+                        <input
+                            type="text"
+                            className="comment-field"
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            placeholder="Add a comment..."
+                        />
+                        <button className="comment-button" onClick={addComment}>
+                            <SendRoundedIcon className="icon" /> 
+                        </button>
+                    </div>
+                    <div className="comment-list">
+                        {comments.map(comment => (
+                            <div className="comment-item" key={comment._id}>
+                                <strong><PersonIcon className="icon" /> {comment.author.username}</strong> {comment.content}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }

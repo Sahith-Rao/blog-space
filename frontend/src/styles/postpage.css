@@ -1,0 +1,226 @@
+/* Post Page Container */
+.post-container {
+    max-width: 800px;
+    margin: 48px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Post Content */
+.post-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2d1b4e;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-family: Arial, sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.post-meta {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.post-meta .icon {
+    font-size: 1.1rem;
+    color: #2d1b4e;
+}
+
+.edit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    text-decoration: none;
+    margin-bottom: 32px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(45, 27, 78, 0.25);
+}
+
+.edit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(45, 27, 78, 0.35);
+}
+
+/* Post Image */
+.post-image {
+    width: 100%;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+}
+
+.post-image:hover {
+    transform: scale(1.02);
+}
+
+/* Post Body */
+.post-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #374151;
+    margin-bottom: 40px;
+}
+
+/* Like Button */
+.like-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    color: #6b7280;
+    padding: 12px 24px;
+    border-radius: 99px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 40px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(45, 27, 78, 0.25);
+}
+
+.like-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(45, 27, 78, 0.35);
+}
+
+.like-button .icon {
+    font-size: 1.2rem;
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 2px solid #f3f4f6;
+}
+
+.comments-title {
+    font-size: 1.8rem;
+    color: #2d1b4e;
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+}
+
+.comment-input {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.comment-field {
+    flex: 1;
+    padding: 14px 18px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+.comment-field:focus {
+    outline: none;
+    border-color: #2d1b4e;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(45, 27, 78, 0.1);
+}
+
+.comment-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(45, 27, 78, 0.25);
+}
+
+.comment-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(45, 27, 78, 0.35);
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment-item {
+    padding: 16px 20px;
+    background: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.comment-item:hover {
+    transform: translateX(4px);
+    background: white;
+}
+
+.comment-item strong {
+    color: #2d1b4e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.comment-item .icon {
+    font-size: 1.1rem;
+    color: #2d1b4e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .post-container {
+        margin: 24px 16px;
+        padding: 24px;
+    }
+
+    .post-title {
+        font-size: 2rem;
+    }
+
+    .comment-input {
+        flex-direction: column;
+    }
+
+    .comment-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
