@@ -1,11 +1,7 @@
+// IndexPage.js
 import { useEffect, useState } from "react";
-import { Grid, Container } from "@mui/material";
 import Post from "../Post";
-import styled from "@emotion/styled";
-
-const StyledContainer = styled(Container)`
-    margin-top: 32px;
-`;
+import '../styles/index.css';
 
 export default function IndexPage() {
     const [posts, setPosts] = useState([]);
@@ -17,14 +13,19 @@ export default function IndexPage() {
     }, []);
 
     return (
-        <StyledContainer>
-            <Grid container spacing={4} justifyContent="center">
+        
+        <div className="index-page" >      
+            <div className = "heading">
+                <h1>Our Latest Blog Posts</h1>
+                <p>Discover insights, tutorials, and thoughts on technology, development, and design</p>
+            </div>
+            <div className="posts-container">
                 {posts.length > 0 && posts.map(post => (
-                    <Grid item xs={12} sm={6} key={post._id}>
+                    <div className="post-wrapper" key={post._id}>
                         <Post {...post} />
-                    </Grid>
+                    </div>
                 ))}
-            </Grid>
-        </StyledContainer>
+            </div>
+        </div>
     );
 }

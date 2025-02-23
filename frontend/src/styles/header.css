@@ -2,14 +2,23 @@
 
 /* Header container */
 .header {
+  position: fixed; /* Make header stick to the top */
+  top: 0; /* Stick at the very top */
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 3rem; /* Increased space from left and right ends */
-  background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+  background: linear-gradient(135deg, #4a3870, #342054);
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 65px; /* Slightly decreased height */
+}
+
+body {
+  padding-top: 65px !important; /* Same as header height */
 }
 
 /* Logo container */
@@ -83,6 +92,7 @@
 .create-post {
   background: #6a1b9a; /* Purple shade that blends with the header */
   color: white;
+  border-radius: 9999px;
 }
 
 .create-post:hover {
@@ -94,6 +104,7 @@
 .logout-button {
   background: #fff; /* Deep red that complements the header */
   color: #000;
+  border-radius: 9999px;
 }
 
 .logout-button:hover {

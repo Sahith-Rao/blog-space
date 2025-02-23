@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import CreateIcon from '@mui/icons-material/Create';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import '../styles/home.css';
 
 export default function HomePage() {
@@ -11,7 +11,7 @@ export default function HomePage() {
       
       <header className="nav-header">
         <div className="logo">
-          <CreateIcon></CreateIcon>
+          <ImportContactsOutlinedIcon></ImportContactsOutlinedIcon>
           BlogSpace
         </div>
       </header>                  

@@ -1,35 +1,19 @@
-// EditPost.js
+// Updated EditPost.js
 import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Container, Paper, TextField, Button, Box, Typography } from '@mui/material';
-import styled from "@emotion/styled";
-
-const StyledPaper = styled(Paper)`
-    padding: 32px;
-    margin-top: 48px;
-    border-radius: 12px;
-    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    background-color: #fff;
-`;
-
-const StyledButton = styled(Button)`
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    &:hover {
-        background-color: #303f9f;
-        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
-    }
-`;
+import ImageIcon from '@mui/icons-material/Image';
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import '../styles/create.css';
 
 export default function EditPost() {
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
-    const [content, setContent] = useState('');
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [files, setFiles] = useState(null);
     const [preview, setPreview] = useState('');
     const [redirect, setRedirect] = useState(false);
@@ -40,7 +24,11 @@ export default function EditPost() {
             .then(post => {
                 setTitle(post.title);
                 setSummary(post.summary);
-                setContent(post.content);
+                const contentBlock = htmlToDraft(post.content);
+                if (contentBlock) {
+                    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                    setEditorState(EditorState.createWithContent(contentState));
+                }
                 setPreview(`http://localhost:4000/${post.cover}`);
             });
     }, [id]);
@@ -58,6 +46,7 @@ export default function EditPost() {
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
+        const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
         data.set('content', content);
         if (files) {
             data.set('file', files[0]);
@@ -79,25 +68,50 @@ export default function EditPost() {
     }
 
     return (
-        <Container maxWidth="sm">
-            <StyledPaper elevation={6}>
-                <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#3f51b5' }}>
-                    Edit Post
-                </Typography>
-                <Box component="form" onSubmit={updatePost} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <TextField label="Title" variant="outlined" fullWidth value={title} onChange={ev => setTitle(ev.target.value)} />
-                    <TextField label="Summary" variant="outlined" fullWidth value={summary} onChange={ev => setSummary(ev.target.value)} />
-                    <Button variant="contained" component="label" sx={{ backgroundColor: '#3f51b5', color: 'white', textTransform: 'none', '&:hover': { backgroundColor: '#303f9f' }, marginTop: 1 }}>
-                        Upload Cover Image
+        <div className="create-post-container">
+            <h2 className="create-post-title">Edit Post</h2>
+            <form onSubmit={updatePost} className="create-post-form">
+                <div className="input-group">
+                    <label className="input-label">Title</label>
+                    <input
+                        type="text"
+                        placeholder="Enter post title"
+                        className="input-field"
+                        value={title}
+                        onChange={ev => setTitle(ev.target.value)}
+                    />
+                </div>
+                <div className="input-group">
+                    <label className="input-label">Summary</label>
+                    <input
+                        type="text"
+                        placeholder="Enter post summary"
+                        className="input-field"
+                        value={summary}
+                        onChange={ev => setSummary(ev.target.value)}
+                    />
+                </div>
+                <div className="input-group">
+                    <label className="input-label">Content</label>
+                    <Editor
+                        editorState={editorState}
+                        wrapperClassName="editor-wrapper"
+                        editorClassName="editor"
+                        toolbarClassName="toolbar"
+                        onEditorStateChange={setEditorState}
+                        placeholder="Update your content here..."
+                    />
+                </div>
+                <div className="input-group">
+                    <label className="input-label upload-label">
+                        <ImageIcon className="image-upload-icon" />
+                        Upload New Cover Image
                         <input type="file" hidden onChange={handleFileChange} />
-                    </Button>
-                    {preview && <img src={preview} alt="Preview" style={{ width: '100%', marginTop: '10px' }} />}
-                    <TextField label="Content" multiline rows={6} variant="outlined" fullWidth value={content} onChange={ev => setContent(ev.target.value)} />
-                    <StyledButton type="submit" variant="contained" color="primary">
-                        Update Post
-                    </StyledButton>
-                </Box>
-            </StyledPaper>
-        </Container>
+                    </label>
+                </div>
+                {preview && <img src={preview} alt="Preview" className="preview-image" />}
+                <button type="submit" className="submit-button">Update Post</button>
+            </form>
+        </div>
     );
 }

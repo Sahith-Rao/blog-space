@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
-import CreateIcon from '@mui/icons-material/Create';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddIcon from '@mui/icons-material/Add';
 import PersonSharpIcon from '@mui/icons-material/PersonSharp';
@@ -40,7 +40,7 @@ export default function Header() {
     return (
         <header className="header">
             <div className="logo-container">
-                <CreateIcon className="logo-icon" />
+                <ImportContactsOutlinedIcon className="logo-icon" />
                 <Link to="/index" className="logo-text">BlogSpace</Link>
             </div>
             <nav className="nav-links">
