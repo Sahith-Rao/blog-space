@@ -9,7 +9,7 @@ const Comment = require('./models/Comment');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const uploadMiddleware = require('./cloudinary'); // Import Cloudinary upload middleware
+const uploadMiddleware = require('./cloudinary'); // Cloudinary upload middleware
 
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET;
@@ -18,13 +18,12 @@ const app = express();
 app.use(cors({
   origin: [process.env.CLIENT_URL, 'https://blogit-mkvu.vercel.app', 'http://localhost:3000'],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-
-app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
+
+// Handle CORS pre-flight requests
+app.options('*', cors());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI);
@@ -89,13 +88,15 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
     const { title, summary, content } = req.body;
+
     const postDoc = await Post.create({
       title,
       summary,
       content,
-      cover: req.file.path, // Use Cloudinary URL
+      cover: req.file.path, // Cloudinary URL
       author: info.id,
     });
+
     res.json(postDoc);
   });
 });
@@ -116,7 +117,7 @@ app.get('/post/:id', async (req, res) => {
 app.put('/post/:id', uploadMiddleware.single('file'), async (req, res) => {
   let newPath = null;
   if (req.file) {
-    newPath = req.file.path; // Use the Cloudinary URL
+    newPath = req.file.path; // Use Cloudinary URL
   }
 
   const { token } = req.cookies;
