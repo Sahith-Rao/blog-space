@@ -9,35 +9,23 @@ const Comment = require('./models/Comment');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const multer = require('multer');
-const uploadMiddleware = multer({ dest: 'uploads/' });
-const fs = require('fs');
+const uploadMiddleware = require('./cloudinary'); // Import Cloudinary upload middleware
 
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET;
 
 const app = express();
-
-// CORS Configuration
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://blogit-6u5v.vercel.app',
+  origin: [process.env.CLIENT_URL, 'https://blogit-mkvu.vercel.app', 'http://localhost:3000'],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Handle Preflight Requests
 app.options('*', cors());
-
-// Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGODB_URI);
 
 // Register User
 app.post('/register', async (req, res) => {
@@ -67,8 +55,8 @@ app.post('/login', async (req, res) => {
       if (err) throw err;
       res.cookie('token', token, {
         httpOnly: true,
-        secure: true, // Important for production
-        sameSite: 'none', // Needed for cross-site cookies
+        secure: false,
+        sameSite: 'lax',
       }).json({
         id: userDoc._id,
         username,
@@ -90,20 +78,11 @@ app.get('/profile', (req, res) => {
 
 // Logout
 app.post('/logout', (req, res) => {
-  res.cookie('token', '', {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-  }).json('ok');
+  res.cookie('token', '').json('ok');
 });
 
-// Create Post
+// Create Post with Cloudinary
 app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
-  const { originalname, path } = req.file;
-  const ext = originalname.split('.').pop();
-  const newPath = path + '.' + ext;
-  fs.renameSync(path, newPath);
-
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
@@ -112,7 +91,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
       title,
       summary,
       content,
-      cover: newPath,
+      cover: req.file.path, // Use Cloudinary URL
       author: info.id,
     });
     res.json(postDoc);
@@ -131,14 +110,11 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 });
 
-// Update Post
+// Update Post with Cloudinary
 app.put('/post/:id', uploadMiddleware.single('file'), async (req, res) => {
   let newPath = null;
   if (req.file) {
-    const { originalname, path } = req.file;
-    const ext = originalname.split('.').pop();
-    newPath = path + '.' + ext;
-    fs.renameSync(path, newPath);
+    newPath = req.file.path; // Use the Cloudinary URL
   }
 
   const { token } = req.cookies;
