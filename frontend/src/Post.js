@@ -4,7 +4,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 
 export default function Post({ _id, title, summary, cover, createdAt, author }) {
-    // Format the date as "Month Day, Year"
+    
     const formattedDate = new Date(createdAt).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
