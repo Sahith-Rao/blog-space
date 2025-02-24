@@ -1,7 +1,7 @@
 .index-page {
     background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
     min-height: 100vh;
-    padding: 48px 16px; /* Adjusted padding */
+    padding: 48px 16px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,18 +39,18 @@
     justify-content: space-between;
     gap: 20px;
     width: 100%;
-    max-width: 1200px; /* Adjust this value as needed */
-    padding: 20px; /* Adjusted padding */
+    max-width: 1200px; 
+    padding: 20px; 
 }
 
 .post-wrapper {
-    flex: 1 1 calc(50% - 20px); /* Two columns with gap */
+    flex: 1 1 calc(50% - 20px); 
     display: flex;
     justify-content: center;
 }
 
 @media (max-width: 768px) {
     .post-wrapper {
-        flex: 1 1 100%; /* One column on smaller screens */
+        flex: 1 1 100%; 
     }
 }

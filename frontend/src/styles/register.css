@@ -1,5 +1,5 @@
 .register-container {
-    background-image: url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=2070');
+    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
     background-size: cover;
     background-position: center;
     height: 100vh;

@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { UserContext } from '../UserContext';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import '../styles/postpage.css';
 

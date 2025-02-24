@@ -1,8 +1,6 @@
-/* Create Post Container */
 
-/* Page Background */
 body {
-    background: linear-gradient(135deg, #2d1b4e, #1a0f2e); /* Gradient background */
+    background: linear-gradient(135deg, #2d1b4e, #1a0f2e); 
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -18,7 +16,7 @@ body {
     text-align: center;
 }
 
-/* Title Styling */
+
 .create-post-title {
     font-size: 2rem;
     font-weight: bold;
@@ -27,7 +25,7 @@ body {
     text-align: left;
 }
 
-/* Form Styling */
+
 .create-post-form {
     display: flex;
     flex-direction: column;
@@ -66,7 +64,7 @@ body {
     border-color: #4b2a7b;
 }
 
-/* Editor Styling */
+
 .editor-wrapper {
     width: 100%;
     border: 2px solid #2d1b4e;
@@ -87,7 +85,7 @@ body {
     pointer-events: none;
 }
 
-/* Upload Button */
+
 .upload-label {
     background: #f0f0f0;
     color: #2d1b4e;
@@ -111,7 +109,7 @@ body {
     font-size: 1.5rem;
 }
 
-/* Preview Image */
+
 .preview-image {
     width: 100%;
     margin-top: 10px;
@@ -119,7 +117,7 @@ body {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Submit Button */
+
 .submit-button {
     background: linear-gradient(135deg, #4b2a7b, #2d1b4e);
     color: white;

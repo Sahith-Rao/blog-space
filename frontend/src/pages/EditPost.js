@@ -1,4 +1,4 @@
-// Updated EditPost.js
+
 import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import ImageIcon from '@mui/icons-material/Image';
