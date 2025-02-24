@@ -23,7 +23,7 @@ export default function Header() {
                 setUserInfo(userInfo);
             });
         });
-    }, []);
+    }, [setUserInfo]);
 
     function logout() {
         fetch(`${backendUrl}/logout`, {

@@ -32,7 +32,7 @@ export default function EditPost() {
                 // Set direct Cloudinary URL for preview
                 setPreview(post.cover);
             });
-    }, [id]);
+    }, [backendUrl,id]);
 
     function handleFileChange(ev) {
         const file = ev.target.files[0];

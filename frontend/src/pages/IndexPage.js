@@ -11,7 +11,7 @@ export default function IndexPage() {
         fetch(`${backendUrl}/post`)
             .then(response => response.json())
             .then(posts => setPosts(posts));
-    }, []);
+    }, [backendUrl]);
 
     return (
         

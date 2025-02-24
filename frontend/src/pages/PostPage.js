@@ -12,7 +12,6 @@ export default function PostPage() {
     const [postInfo, setPostInfo] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
-    const [likes, setLikes] = useState(0);
     const { userInfo } = useContext(UserContext);
     const { id } = useParams();
 
@@ -21,7 +20,7 @@ export default function PostPage() {
             .then(response => response.json())
             .then(data => {
                 setPostInfo(data);
-                setLikes(data.likes || 0);
+                
             });
         fetch(`${backendUrl}/comments/${id}`)
             .then(response => response.json())
@@ -43,17 +42,7 @@ export default function PostPage() {
         }
     };
 
-    const likePost = async () => {
-        const response = await fetch(`${backendUrl}/post/${id}/like`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include'
-        });
-        if (response.ok) {
-            const data = await response.json();
-            setLikes(data.likes);
-        }
-    };
+    
 
     if (!postInfo) return '';
 
