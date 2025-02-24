@@ -16,7 +16,7 @@ const secret = process.env.JWT_SECRET;
 
 const app = express();
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: [process.env.CLIENT_URL, 'https://blogit-mkvu.vercel.app', 'http://localhost:3000'],
   credentials: true,
 }));
 app.use(express.json());
