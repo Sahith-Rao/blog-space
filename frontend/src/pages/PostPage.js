@@ -72,7 +72,8 @@ export default function PostPage() {
                         </Link>
                     )}
                 </div>
-                <img src={`${backendUrl}/${postInfo.cover}`} alt={postInfo.title} className="post-image" />
+                {/* Use direct Cloudinary URL for the cover image */}
+                <img src={postInfo.cover} alt={postInfo.title} className="post-image" />
                 <div className="post-body" dangerouslySetInnerHTML={{ __html: postInfo.content }}></div>
                 
                 <div className="comments-section">

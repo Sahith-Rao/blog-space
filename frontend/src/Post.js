@@ -15,7 +15,7 @@ export default function Post({ _id, title, summary, cover, createdAt, author }) 
         <div className="post-card">
             <img
                 className="post-image"
-                src={`http://localhost:4000/${cover}`}
+                src={cover} // Directly using the Cloudinary URL
                 alt={title}
             />
             <div className="post-content">
@@ -24,7 +24,7 @@ export default function Post({ _id, title, summary, cover, createdAt, author }) 
                     <span className="info-item">
                         <PersonOutlineOutlinedIcon fontSize="small" /> {author.username}
                     </span>
-                    <span className="info-separator">|</span> {/* Added separator */}
+                    <span className="info-separator">|</span>
                     <span className="info-item">
                         <CalendarTodayOutlinedIcon fontSize="small" /> {formattedDate}
                     </span>
