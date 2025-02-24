@@ -1,13 +1,14 @@
-// IndexPage.js
+
 import { useEffect, useState } from "react";
 import Post from "../Post";
 import '../styles/index.css';
 
 export default function IndexPage() {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4000/post")
+        fetch(`${backendUrl}/post`)
             .then(response => response.json())
             .then(posts => setPosts(posts));
     }, []);

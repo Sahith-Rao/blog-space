@@ -8,6 +8,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../styles/create.css';
 
 export default function CreatePost() {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -25,6 +26,10 @@ export default function CreatePost() {
 
     async function createNewPost(ev) {
         ev.preventDefault();
+        if (!title || !summary || editorState.getCurrentContent().hasText() === false) {
+            alert("Title, summary, and content cannot be empty.");
+            return;
+        }
         const data = new FormData();
         data.set('title', title);
         data.set('summary', summary);
@@ -34,7 +39,7 @@ export default function CreatePost() {
             data.set('file', files[0]);
         }
 
-        const response = await fetch('http://localhost:4000/post', {
+        const response = await fetch(`${backendUrl}/post`, {
             method: 'POST',
             body: data,
             credentials: 'include',

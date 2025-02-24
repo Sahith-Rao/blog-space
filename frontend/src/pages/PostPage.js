@@ -8,6 +8,7 @@ import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import '../styles/postpage.css';
 
 export default function PostPage() {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [postInfo, setPostInfo] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
@@ -16,20 +17,20 @@ export default function PostPage() {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:4000/post/${id}`)
+        fetch(`${backendUrl}/post/${id}`)
             .then(response => response.json())
             .then(data => {
                 setPostInfo(data);
                 setLikes(data.likes || 0);
             });
-        fetch(`http://localhost:4000/comments/${id}`)
+        fetch(`${backendUrl}/comments/${id}`)
             .then(response => response.json())
             .then(setComments);
-    }, [id]);
+    }, [id, backendUrl]);
 
     const addComment = async () => {
         if (!newComment.trim()) return;
-        const response = await fetch(`http://localhost:4000/comments/${id}`, {
+        const response = await fetch(`${backendUrl}/comments/${id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -43,7 +44,7 @@ export default function PostPage() {
     };
 
     const likePost = async () => {
-        const response = await fetch(`http://localhost:4000/post/${id}/like`, {
+        const response = await fetch(`${backendUrl}/post/${id}/like`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
@@ -71,7 +72,7 @@ export default function PostPage() {
                         </Link>
                     )}
                 </div>
-                <img src={`http://localhost:4000/${postInfo.cover}`} alt={postInfo.title} className="post-image" />
+                <img src={`${backendUrl}/${postInfo.cover}`} alt={postInfo.title} className="post-image" />
                 <div className="post-body" dangerouslySetInnerHTML={{ __html: postInfo.content }}></div>
                 
                 <div className="comments-section">

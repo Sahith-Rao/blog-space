@@ -6,6 +6,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import "../styles/register.css";
 
 export default function RegisterPage() {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function RegisterPage() {
     async function register(ev) {
         ev.preventDefault();
 
-        const response = await fetch('http://localhost:4000/register', {
+        const response = await fetch(`${backendUrl}/register`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },

@@ -10,6 +10,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../styles/create.css';
 
 export default function EditPost() {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
@@ -19,7 +20,7 @@ export default function EditPost() {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/post/${id}`)
+        fetch(`${backendUrl}/post/${id}`)
             .then(res => res.json())
             .then(post => {
                 setTitle(post.title);
@@ -29,7 +30,7 @@ export default function EditPost() {
                     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                     setEditorState(EditorState.createWithContent(contentState));
                 }
-                setPreview(`http://localhost:4000/${post.cover}`);
+                setPreview(`${backendUrl}/${post.cover}`);
             });
     }, [id]);
 
@@ -52,7 +53,7 @@ export default function EditPost() {
             data.set('file', files[0]);
         }
 
-        const response = await fetch(`http://localhost:4000/post/${id}`, {
+        const response = await fetch(`${backendUrl}/post/${id}`, {
             method: 'PUT',
             body: data,
             credentials: 'include',

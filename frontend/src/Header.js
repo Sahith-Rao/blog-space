@@ -8,6 +8,7 @@ import PersonSharpIcon from '@mui/icons-material/PersonSharp';
 import './styles/header.css';
 
 export default function Header() {
+    const backendUrl = "http://localhost:4000";
     const { setUserInfo, userInfo } = useContext(UserContext);
     const navigate = useNavigate();
     const location = useLocation();
@@ -15,7 +16,7 @@ export default function Header() {
     const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
 
     useEffect(() => {
-        fetch("http://localhost:4000/profile", {
+        fetch(`${backendUrl}/profile`, {
             credentials: "include",
         }).then(response => {
             response.json().then(userInfo => {
@@ -25,7 +26,7 @@ export default function Header() {
     }, []);
 
     function logout() {
-        fetch("http://localhost:4000/logout", {
+        fetch(`${backendUrl}/logout`, {
             credentials: "include",
             method: "POST",
         });
