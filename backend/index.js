@@ -16,7 +16,7 @@ const secret = process.env.JWT_SECRET;
 
 const app = express();
 app.use(cors({
-  origin: [process.env.CLIENT_URL, 'https://blogit-mkvu.vercel.app', 'http://localhost:3000'],
+  origin: [process.env.CLIENT_URL, 'blogspace-bay.vercel.app', 'http://localhost:3000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -85,17 +85,22 @@ app.post('/logout', (req, res) => {
 
 // Create Post with Cloudinary
 app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
-    if (err) throw err;
+    if (err) return res.status(401).json({ error: 'Unauthorized' });
+
     const { title, summary, content } = req.body;
     const postDoc = await Post.create({
       title,
       summary,
       content,
-      cover: req.file.path, // Use Cloudinary URL
+      cover: req.file.path, 
       author: info.id,
     });
+
     res.json(postDoc);
   });
 });
