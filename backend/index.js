@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables
+require('dotenv').config(); 
 
 const express = require('express');
 const cors = require('cors');
@@ -9,20 +9,20 @@ const Comment = require('./models/Comment');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const uploadMiddleware = require('./cloudinary'); // Import Cloudinary upload middleware
+const uploadMiddleware = require('./cloudinary'); 
 
 const app = express();
 
-// Load environment variables
+
 const CLIENT_URL = process.env.CLIENT_URL || 'https://blogspace-bay.vercel.app';
 const MONGODB_URI = process.env.MONGODB_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 const PORT = process.env.PORT || 4000;
 
-// CORS Configuration
+
 app.use(cors({
-  origin: [CLIENT_URL, 'http://localhost:3000'], // Allow frontend and localhost
-  credentials: true, // Allow cookies
+  origin: [CLIENT_URL, 'http://localhost:3000'], 
+  credentials: true, 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -31,12 +31,12 @@ app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Connect to MongoDB
+
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Register User
+
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -49,7 +49,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Login User
+
 app.post('/login', async (req, res) => {
 
   res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
@@ -68,8 +68,8 @@ app.post('/login', async (req, res) => {
       }
       res.cookie('token', token, {
         httpOnly: true,
-        secure: true, // Ensure secure cookies in production
-        sameSite: 'none', // Required for cross-origin cookies
+        secure: true, 
+        sameSite: 'none', 
       }).json({ id: userDoc._id, username });
     });
   } else {
@@ -77,7 +77,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Get Profile
+
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;
   if (!token) return res.status(401).json({ error: 'Unauthorized' });
@@ -88,12 +88,11 @@ app.get('/profile', (req, res) => {
   });
 });
 
-// Logout
+
 app.post('/logout', (req, res) => {
   res.cookie('token', '', { httpOnly: true, secure: true, sameSite: 'none' }).json({ message: 'Logged out' });
 });
 
-// Create Post with Cloudinary
 app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -107,7 +106,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
         title,
         summary,
         content,
-        cover: req.file.path, // Cloudinary URL
+        cover: req.file.path, 
         author: info.id,
       });
       res.json(postDoc);
@@ -118,7 +117,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
   });
 });
 
-// Get All Posts
+
 app.get('/post', async (req, res) => {
   try {
     const posts = await Post.find().populate('author', ['username']).sort({ createdAt: -1 }).limit(20);
@@ -129,7 +128,7 @@ app.get('/post', async (req, res) => {
   }
 });
 
-// Get Single Post
+
 app.get('/post/:id', async (req, res) => {
   try {
     const postDoc = await Post.findById(req.params.id).populate('author', ['username']);
@@ -141,7 +140,7 @@ app.get('/post/:id', async (req, res) => {
   }
 });
 
-// Update Post
+
 app.put('/post/:id', uploadMiddleware.single('file'), async (req, res) => {
   let newPath = req.file ? req.file.path : null;
   const { token } = req.cookies;
@@ -170,7 +169,7 @@ app.put('/post/:id', uploadMiddleware.single('file'), async (req, res) => {
   });
 });
 
-// Add Comment
+
 app.post('/comments/:postId', async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, JWT_SECRET, {}, async (err, info) => {
@@ -188,7 +187,7 @@ app.post('/comments/:postId', async (req, res) => {
   });
 });
 
-// Get Comments
+
 app.get('/comments/:postId', async (req, res) => {
   try {
     const comments = await Comment.find({ post: req.params.postId }).populate('author', ['username']).sort({ createdAt: -1 });
@@ -199,7 +198,7 @@ app.get('/comments/:postId', async (req, res) => {
   }
 });
 
-// Like Post
+
 app.post('/post/:id/like', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -214,5 +213,4 @@ app.post('/post/:id/like', async (req, res) => {
   }
 });
 
-// Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

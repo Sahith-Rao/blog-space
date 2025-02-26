@@ -1,4 +1,4 @@
-// models/Post.js
+
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
@@ -8,7 +8,7 @@ const PostSchema = new Schema({
     content: String,
     cover: String,
     author: { type: Schema.Types.ObjectId, ref: 'User' },
-    likes: { type: Number, default: 0 } // Added likes field with default value
+    likes: { type: Number, default: 0 } 
 }, {
     timestamps: true,
 });

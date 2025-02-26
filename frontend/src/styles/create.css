@@ -1,14 +1,15 @@
 
 body {
-    background: linear-gradient(135deg, #2d1b4e, #1a0f2e); 
+    padding-top: 65px !important; 
+    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-}
+  }
 
 .create-post-container {
     max-width: 600px;
-    margin: 48px auto;
+    margin: 80px auto 48px;
     background: white;
     padding: 32px;
     border-radius: 12px;

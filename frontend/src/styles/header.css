@@ -1,4 +1,3 @@
-
 .header {
   position: fixed; 
   top: 0; 
@@ -8,32 +7,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem; 
-  background: linear-gradient(135deg, #4a3870, #342054);
+  padding: 1rem 2rem; 
+  background: #2f194f; 
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 65px; 
+  border-bottom: 2px solid #a463f2; 
 }
 
-body {
-  padding-top: 65px !important; 
-}
+
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .logo-icon {
-  font-size: 2rem; 
-  color: white;
+  font-size: 2rem;
+  color: #f1d2f4;
 }
 
 .logo-text {
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: #f1d2f4;
   text-decoration: none;
 }
 
@@ -42,83 +40,181 @@ body {
 }
 
 
-.nav-links {
+.search-container {
+  flex-grow: 1;
   display: flex;
-  align-items: center;
-  gap: 1.5rem; 
+  justify-content: center;
+  margin: 0 1rem; 
 }
 
-
-.user-actions,
-.auth-buttons {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem; 
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
 }
 
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
 
-.nav-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.25rem; 
-  background: rgba(255, 255, 255, 0.1); 
+.search-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  font-size: 1rem;
+  border: 2px solid #a463f2;
+  border-radius: 10px;
+  background: transparent;
   color: white;
-  border: none;
-  border-radius: 15px; 
-  font-size: 1rem; 
+  outline: none;
+  transition: 0.3s ease-in-out;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-input:focus {
+  border-color: #c084fc;
+  box-shadow: 0 0 8px #c084fc;
+}
+
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; 
+}
+
+
+.create-post {
+  background: #a855f7;
+  color: white;
+  padding: 0.6rem 1.25rem;
+  border: 2px solid #a463f2;
+  border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
   transition: background 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.nav-button:hover {
-  background: rgba(255, 255, 255, 0.2); 
+.create-post:hover {
+  background: #c084fc;
+  border-color: #c084fc;
 }
 
 
 .user-info {
   background: transparent;
-  color: white;
-  
+  color: #f1d2f4;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: none;
+  outline: none;
+  padding: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: default;
 }
 
-
-
-.create-post {
-  background: #6a1b9a; 
-  color: white;
-  border-radius: 9999px;
+.username {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-.create-post:hover {
-  background:#fff;
-  color: #000; 
-}
 
 .logout-button {
-  background: #fff; 
-  color: #000;
-  border-radius: 9999px;
+  background: transparent;
+  color: #f1d2f4;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .logout-button:hover {
-  background: #f44336; 
+  color: #f44336;
 }
 
 
-.login-button,
-.register-button {
-  background: #2196f3; 
-  color: white;
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem; 
+  }
+
+  .logo-text {
+    font-size: 1.2rem; 
+  }
+
+  .search-container {
+    margin: 0 0.5rem; 
+  }
+
+  .search-input {
+    padding: 8px 12px 8px 35px; 
+    font-size: 0.9rem; 
+  }
+
+  .search-icon {
+    font-size: 1rem; 
+    left: 8px; 
+  }
+
+  .user-actions {
+    gap: 1rem; 
+  }
+
+  .create-post {
+    padding: 0.5rem 1rem; 
+    font-size: 0.9rem; 
+  }
+
+  .username {
+    font-size: 1rem;
+  }
+
+  .logout-button {
+    font-size: 1rem; 
+  }
 }
 
-.login-button:hover,
-.register-button:hover {
-  background: #1e88e5; 
-}
+@media (max-width: 480px) {
+  .logo-text {
+    display: none; 
+  }
 
+  .search-container {
+    margin: 0; 
+  }
 
-.username {
-  font-weight: bold;
+  .search-input {
+    max-width: 150px; 
+  }
+
+  .user-actions {
+    gap: 0.5rem; 
+  }
+
+  .create-post {
+    padding: 0.4rem 0.8rem; 
+    font-size: 0.8rem; 
+  }
+
+  .username {
+    font-size: 0.9rem; 
+  }
+
+  .logout-button {
+    font-size: 0.9rem; 
+  }
 }

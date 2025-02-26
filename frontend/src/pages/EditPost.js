@@ -29,7 +29,7 @@ export default function EditPost() {
                     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                     setEditorState(EditorState.createWithContent(contentState));
                 }
-                // Set direct Cloudinary URL for preview
+                
                 setPreview(post.cover);
             });
     }, [backendUrl,id]);
@@ -110,7 +110,7 @@ export default function EditPost() {
                         <input type="file" hidden onChange={handleFileChange} />
                     </label>
                 </div>
-                {/* Display existing cover image or new preview */}
+                
                 {preview && <img src={preview} alt="Preview" className="preview-image" />}
                 <button type="submit" className="submit-button">Update Post</button>
             </form>

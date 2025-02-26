@@ -1,19 +1,19 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
-import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AddIcon from '@mui/icons-material/Add';
-import PersonSharpIcon from '@mui/icons-material/PersonSharp';
-import './styles/header.css';
+import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AddIcon from "@mui/icons-material/Add";
+import PersonSharpIcon from "@mui/icons-material/PersonSharp";
+import SearchIcon from '@mui/icons-material/Search'; 
+import "./styles/header.css";
 
-export default function Header() {
+export default function Header({ onSearch = () => {} }) {
     const backendUrl = "http://localhost:4000";
     const { setUserInfo, userInfo } = useContext(UserContext);
     const navigate = useNavigate();
     const location = useLocation();
-
-    const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
+    const isIndexPage = location.pathname === "/index";
 
     useEffect(() => {
         fetch(`${backendUrl}/profile`, {
@@ -36,38 +36,45 @@ export default function Header() {
 
     const username = userInfo?.username;
 
-    if (isAuthPage) return null;
-
     return (
         <header className="header">
             <div className="logo-container">
                 <ImportContactsOutlinedIcon className="logo-icon" />
                 <Link to="/index" className="logo-text">BlogSpace</Link>
             </div>
-            <nav className="nav-links">
+
+            {isIndexPage && (
+                <div className="search-container">
+                    <div className="search-input-wrapper">
+                        <SearchIcon className="search-icon" /> 
+                        <input
+                            type="text"
+                            className="search-input"
+                            placeholder="Search posts..."
+                            onChange={(e) => onSearch(e.target.value)}
+                        />
+                    </div>
+                </div>
+            )}
+
+            <nav className="user-actions">
                 {username ? (
-                    <div className="user-actions">
-                        
+                    <>
                         <Link to="/create" className="nav-button create-post">
                             <AddIcon /> Create Post
                         </Link>
                         <button className="nav-button user-info">
                             <PersonSharpIcon />
-                            <span className="username"> {username}</span>
+                            <span className="username">{username}</span>
                         </button>
                         <button onClick={logout} className="nav-button logout-button">
-                            <LogoutIcon /> Logout
+                            <LogoutIcon />
                         </button>
-                    </div>
+                    </>
                 ) : (
-                    <div className="auth-buttons">
-                        <Link to="/login" className="nav-button login-button">
-                            <PersonSharpIcon /> Login
-                        </Link>
-                        <Link to="/register" className="nav-button register-button">
-                            <PersonSharpIcon /> Register
-                        </Link>
-                    </div>
+                    <Link to="/login" className="nav-button create-post">
+                        <PersonSharpIcon /> Login
+                    </Link>
                 )}
             </nav>
         </header>

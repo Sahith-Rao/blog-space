@@ -1,16 +1,16 @@
 
-
-
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 !important; 
+  padding: 0 !important; 
+}
   
 
   .login-box {
