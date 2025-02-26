@@ -7,6 +7,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import '../styles/login.css';
 
 export default function LoginPage() {
+    
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -17,8 +18,9 @@ export default function LoginPage() {
         ev.preventDefault();
         const response = await fetch(`${backendUrl}/login`, {
             method: 'POST',
-            body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+            
             credentials: 'include',
         });
 
