@@ -12,25 +12,27 @@ export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const [error, setError] = useState('');
     const { setUserInfo } = useContext(UserContext);
 
     async function login(ev) {
         ev.preventDefault();
+        setError(''); // Clear previous errors
+
         const response = await fetch(`${backendUrl}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
-            
             credentials: 'include',
         });
 
+        const data = await response.json();
+
         if (response.ok) {
-            response.json().then(userInfo => {
-                setUserInfo(userInfo);
-                setRedirect(true);
-            });
+            setUserInfo(data);
+            setRedirect(true);
         } else {
-            alert('Wrong credentials');
+            setError(data.error || 'Invalid username or password');
         }
     }
 
@@ -43,10 +45,13 @@ export default function LoginPage() {
             <div className="login-box">
                 <h2 className="login-title">Welcome Back!</h2>
                 <p className="login-subtitle">Log into your account</p>
+                
+                {error && <p className="error-message">{error}</p>} 
+                
                 <form className="login-form" onSubmit={login}>
                     <div className="input-wrapper">
-                        <PersonIcon className="input-icon" />
-                        <TextField
+                        
+                        <input
                             type="text"
                             className="input-field"
                             placeholder="Username"
@@ -56,8 +61,8 @@ export default function LoginPage() {
                         />
                     </div>
                     <div className="input-wrapper">
-                        <LockIcon className="input-icon" />
-                        <TextField
+                        
+                        <input
                             type="password"
                             className="input-field"
                             placeholder="Password"
@@ -68,6 +73,7 @@ export default function LoginPage() {
                     </div>
                     <button type="submit" className="login-button">Login</button>
                 </form>
+                
                 <p className="signup-link">
                     Don't have an account? <Link to="/register">Sign Up</Link>
                 </p>

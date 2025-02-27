@@ -5,7 +5,8 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; 
+    padding-top: 12vh;
 }
 
 .register-box {
@@ -18,7 +19,16 @@
     color: white;
 }
 
-
+.error-message {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid red;
+    color: red;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
 
 .register-title {
     font-size: 32px;

@@ -37,17 +37,32 @@ mongoose.connect(MONGODB_URI)
   .catch(err => console.error('MongoDB Connection Error:', err));
 
 
-app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const userDoc = await User.create({ username, password: hashedPassword });
-    res.json(userDoc);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: 'Registration failed' });
-  }
-});
+  app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+  
+    
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Username already exists' });
+    }
+  
+    
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+    }
+    if (!/[A-Z]/.test(password) && !/\d/.test(password)) {
+      return res.status(400).json({ error: 'Password must contain at least one uppercase letter or number' });
+    }
+  
+    try {
+      const hashedPassword = bcrypt.hashSync(password, 10);
+      const userDoc = await User.create({ username, password: hashedPassword });
+      res.status(200).json(userDoc);
+    } catch (error) {
+      console.error(error);
+      res.status(400).json({ error: 'Registration failed' });
+    }
+  });
 
 
 app.post('/login', async (req, res) => {

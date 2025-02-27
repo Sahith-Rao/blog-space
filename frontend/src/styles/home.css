@@ -30,7 +30,7 @@
 
 .hero-section {
   max-width: 800px;
-  margin: 0 auto;
+  margin: -10vh auto 0 auto; 
   padding: 5rem 2rem;
   text-align: center;
   display: flex;
