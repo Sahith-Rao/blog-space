@@ -228,4 +228,23 @@ app.post('/post/:id/like', async (req, res) => {
   }
 });
 
+app.get('/myposts', async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) return res.status(401).json({ error: 'Unauthorized' });
+
+  jwt.verify(token, JWT_SECRET, {}, async (err, info) => {
+      if (err) return res.status(401).json({ error: 'Invalid token' });
+
+      try {
+          const posts = await Post.find({ author: info.id })
+              .populate('author', ['username'])
+              .sort({ createdAt: -1 });
+          res.json(posts);
+      } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'Failed to fetch posts' });
+      }
+  });
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

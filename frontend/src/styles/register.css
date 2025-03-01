@@ -1,3 +1,4 @@
+
 .register-container {
     background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
     background-size: cover;
@@ -5,9 +6,41 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; 
-    padding-top: 12vh;
+    align-items: flex-start;
+    padding-top: 5vh;
+    position: relative;
 }
+
+
+.nav-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+    padding: 25px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.logo svg {
+    font-size: 28px;
+    color: #b39ddb;
+}
+
 
 .register-box {
     background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 100%);
@@ -17,7 +50,9 @@
     width: 400px;
     text-align: center;
     color: white;
+    margin-top: 60px; 
 }
+
 
 .error-message {
     background-color: rgba(255, 0, 0, 0.1);
@@ -28,17 +63,21 @@
     margin-bottom: 20px;
     font-size: 14px;
     text-align: center;
-  }
+}
+
 
 .register-title {
     font-size: 32px;
     margin-bottom: 10px;
 }
 
+
 .register-subtitle {
     font-size: 18px;
     margin-bottom: 30px;
+    color: #d1c4e9;
 }
+
 
 .register-form {
     display: flex;
@@ -52,20 +91,47 @@
     align-items: center;
 }
 
-.input-icon {
-    position: absolute;
-    left: 10px;
-    color: white;
+
+.input-container .MuiTextField-root {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); 
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.input-field {
-    width: 100%;
-    padding: 12px 12px 12px 40px;
+.input-container .MuiOutlinedInput-root {
+    background-color: rgba(255, 255, 255, 0.9); 
     border-radius: 10px;
-    border: none;
-    outline: none;
+    height: 56px; 
+}
+
+.input-container .MuiOutlinedInput-input {
+    padding: 18px 14px; 
+    color: #2d1b4e; 
     font-size: 16px;
 }
+
+.input-container .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(255, 255, 255, 0.2); 
+}
+
+.input-container .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #b39ddb; 
+}
+
+.input-container .MuiInputLabel-root {
+    color: #6a4a8c; 
+}
+
+.input-container .MuiInputLabel-outlined {
+    transform: translate(14px, 18px) scale(1); 
+}
+
+.input-container .MuiInputLabel-outlined.Mui-focused,
+.input-container .MuiInputLabel-outlined.MuiInputLabel-shrink {
+    transform: translate(14px, -6px) scale(0.75); 
+}
+
 
 .register-button {
     padding: 12px;
@@ -80,11 +146,13 @@
 }
 
 .register-button:hover {
-    background: #b39ddb;
+    background: linear-gradient(135deg, #4a148c, #2d1b4e);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+
 .login-link {
-    color:  #d1c4e9;
+    color: #d1c4e9;
     margin-top: 20px;
     font-size: 14px;
 }

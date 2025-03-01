@@ -1,3 +1,4 @@
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -7,8 +8,40 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding-top: 15vh;
+  padding-top: 5vh;
+  position: relative;
 }
+
+
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #2d1b4e, #1a0f2e);
+  padding: 25px 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.logo svg {
+  font-size: 28px;
+  color: #b39ddb;
+}
+
 
 .login-box {
   background: linear-gradient(135deg, #2d1b4e 0%, #1a0f2e 100%);
@@ -20,6 +53,7 @@
   text-align: center;
   color: white;
   box-sizing: border-box;
+  margin-top: 60px; 
 }
 
 
@@ -44,6 +78,7 @@
   font-weight: bold;
 }
 
+
 .login-subtitle {
   margin-bottom: 30px;
   font-size: 16px;
@@ -53,43 +88,51 @@
 
 .input-wrapper {
   position: relative;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
 
-.input-icon {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  transform: translateY(-50%);
-  color: #b39ddb;
-  font-size: 20px;
-}
-
-.input-field {
+.input-wrapper .MuiTextField-root {
   width: 100%;
-  padding: 14px 14px 14px 50px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #2d1b4e;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  outline: none;
-  transition: all 0.3s ease;
-  margin-bottom: 20px; 
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 10px;
+  overflow: hidden; 
 }
 
-
-.input-field:focus {
-  border-color: #b39ddb;
-  background-color: white;
-  color: #2d1b4e;
-  box-shadow: 0 0 8px rgba(179, 157, 219, 0.6);
+.input-wrapper .MuiOutlinedInput-root {
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 10px;
 }
+
+.input-wrapper .MuiOutlinedInput-input {
+  padding: 14px; 
+  color: #2d1b4e;
+  font-size: 16px;
+}
+
+.input-wrapper .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.2); 
+}
+
+.input-wrapper .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #b39ddb; 
+}
+
+.input-wrapper .MuiInputLabel-root {
+  color: #6a4a8c; 
+}
+
+.input-wrapper .MuiInputLabel-outlined {
+  transform: translate(14px, 14px) scale(1); 
+}
+
+.input-wrapper .MuiInputLabel-outlined.Mui-focused,
+.input-wrapper .MuiInputLabel-outlined.MuiInputLabel-shrink {
+  transform: translate(14px, -6px) scale(0.75);
+}
+
 
 .login-button {
   width: 100%;
@@ -110,6 +153,7 @@
   background: linear-gradient(135deg, #4a148c, #2d1b4e);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
+
 
 .signup-link {
   margin-top: 20px;

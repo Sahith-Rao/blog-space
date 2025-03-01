@@ -5,7 +5,8 @@ import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlin
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddIcon from "@mui/icons-material/Add";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
-import SearchIcon from '@mui/icons-material/Search'; 
+import SearchIcon from '@mui/icons-material/Search';
+import ArticleIcon from '@mui/icons-material/Article'; 
 import "./styles/header.css";
 
 export default function Header({ onSearch = () => {} }) {
@@ -62,6 +63,9 @@ export default function Header({ onSearch = () => {} }) {
                     <>
                         <Link to="/create" className="nav-button create-post">
                             <AddIcon /> Create Post
+                        </Link>
+                        <Link to="/myposts" className="nav-button my-posts">
+                            <ArticleIcon /> My Posts
                         </Link>
                         <button className="nav-button user-info">
                             <PersonSharpIcon />

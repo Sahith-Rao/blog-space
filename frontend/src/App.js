@@ -9,6 +9,7 @@ import { UserContextProvider, UserContext } from './UserContext';
 import CreatePost from './pages/CreatePost';
 import PostPage from './pages/PostPage';
 import EditPost from './pages/EditPost';
+import MyPosts from './pages/MyPosts';
 import { useContext } from 'react';
 
 function ProtectedRoute({ children }) {
@@ -59,6 +60,14 @@ function App() {
           <ProtectedRoute>
             <Layout />
               <EditPost />
+          </ProtectedRoute>
+        } />
+
+        
+        <Route path="/myposts" element={
+          <ProtectedRoute>
+            <Layout />
+              <MyPosts />
           </ProtectedRoute>
         } />
       </Routes>
