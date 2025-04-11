@@ -29,10 +29,6 @@ export default function IndexPage() {
             
             <Header onSearch={handleSearch} />
             <div className="index-page">
-                <div className="heading">
-                    <h1>Our Latest Blog Posts</h1>
-                    <p>Discover insights, tutorials, and thoughts on technology, development, and design</p>
-                </div>
                 <div className="posts-container">
                     {filteredPosts.length > 0 ? (
                         filteredPosts.map(post => (

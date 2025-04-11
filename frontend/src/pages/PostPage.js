@@ -1,9 +1,10 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
 import { format } from "date-fns";
 import { UserContext } from '../UserContext';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import '../styles/postpage.css';
 
@@ -14,13 +15,13 @@ export default function PostPage() {
     const [newComment, setNewComment] = useState("");
     const { userInfo } = useContext(UserContext);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`${backendUrl}/post/${id}`)
             .then(response => response.json())
             .then(data => {
                 setPostInfo(data);
-                
             });
         fetch(`${backendUrl}/comments/${id}`)
             .then(response => response.json())
@@ -42,7 +43,17 @@ export default function PostPage() {
         }
     };
 
-    
+    const deletePost = async () => {
+        if (window.confirm('Click Ok to delete this post')) {
+            const response = await fetch(`${backendUrl}/post/${id}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+            if (response.ok) {
+                navigate('/index');
+            }
+        }
+    };
 
     if (!postInfo) return '';
 
@@ -55,10 +66,15 @@ export default function PostPage() {
                         {format(new Date(postInfo.createdAt), 'MMMM d, yyyy')} |  
                         <PersonIcon className="icon" /> {postInfo.author.username}
                     </p>
-                    {userInfo.id === postInfo.author._id && (
-                        <Link to={`/edit/${postInfo._id}`} className="edit-button">
-                            <EditIcon className="icon" /> Edit Post
-                        </Link>
+                    {userInfo?.id === postInfo.author._id && (
+                        <div className="post-actions">
+                            <Link to={`/edit/${postInfo._id}`} className="edit-button">
+                                <EditIcon className="icon" /> Edit Post
+                            </Link>
+                            <button onClick={deletePost} className="delete-button">
+                                <DeleteIcon className="icon" /> Delete Post
+                            </button>
+                        </div>
                     )}
                 </div>
                 
@@ -74,6 +90,7 @@ export default function PostPage() {
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="Add a comment..."
+                            onKeyPress={(e) => e.key === 'Enter' && addComment()}
                         />
                         <button className="comment-button" onClick={addComment}>
                             <SendRoundedIcon className="icon" /> 
