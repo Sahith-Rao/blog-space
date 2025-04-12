@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import Post from "../Post"; 
 import Header from "../Header"; 
 import "../styles/index.css"; 
@@ -8,15 +7,30 @@ export default function MyPosts() {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        fetch(`${backendUrl}/myposts`, {
-            credentials: 'include',
-        })
-            .then(response => response.json())
-            .then(posts => {
-                setPosts(posts);
+    
+
+useEffect(() => {
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch(`${backendUrl}/post/myposts`, {
+                credentials: 'include',
             });
-    }, [backendUrl]);
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to fetch posts');
+            }
+            
+            const posts = await response.json();
+            setPosts(posts);
+        } catch (error) {
+            console.error('Error details:', error);
+            setPosts([]);
+        }
+    };
+
+    fetchPosts();
+}, [backendUrl]);
 
     return (
         <>

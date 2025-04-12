@@ -8,11 +8,10 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'blogit_uploads', 
+    folder: 'blogit_uploads',
     allowed_formats: ['jpg', 'png', 'jpeg', 'gif'],
   },
 });

@@ -15,7 +15,7 @@ export default function Post({ _id, title, summary, cover, createdAt, author }) 
         <div className="post-card">
             <img
                 className="post-image"
-                src={cover} // Directly using the Cloudinary URL
+                src={cover} 
                 alt={title}
             />
             <div className="post-content">

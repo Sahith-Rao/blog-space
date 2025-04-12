@@ -93,11 +93,11 @@
 .input-container .MuiOutlinedInput-root {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    height: 64px; /* Increased height */
+    height: 64px; 
 }
 
 .input-container .MuiOutlinedInput-input {
-    padding: 20px 14px; /* Adjust padding */
+    padding: 20px 14px; 
     color: #2d1b4e;
     font-size: 16px;
 }
@@ -115,12 +115,12 @@
 }
 
 .input-container .MuiInputLabel-outlined {
-    transform: translate(14px, 22px) scale(1); /* Adjusted label position */
+    transform: translate(14px, 22px) scale(1); 
 }
 
 .input-container .MuiInputLabel-outlined.Mui-focused,
 .input-container .MuiInputLabel-outlined.MuiInputLabel-shrink {
-    transform: translate(14px, 6px) scale(0.75); /* Adjusted focus position */
+    transform: translate(14px, 6px) scale(0.75); 
 }
 
 .register-button {

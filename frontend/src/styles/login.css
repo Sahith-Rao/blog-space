@@ -95,12 +95,12 @@
 .input-wrapper .MuiOutlinedInput-root {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
-  min-height: 55px; /* Increased height */
+  min-height: 55px; 
 }
 
 .input-wrapper .MuiOutlinedInput-input {
-  padding: 18px; /* Increased padding */
-  height: 24px; /* Set minimum height */
+  padding: 18px; 
+  height: 24px; 
   font-size: 16px;
   color: #2d1b4e;
 }
@@ -118,12 +118,12 @@
 }
 
 .input-wrapper .MuiInputLabel-outlined {
-  transform: translate(16px, 18px) scale(1); /* Adjust label position */
+  transform: translate(16px, 18px) scale(1); 
 }
 
 .input-wrapper .MuiInputLabel-outlined.Mui-focused,
 .input-wrapper .MuiInputLabel-outlined.MuiInputLabel-shrink {
-  transform: translate(16px, 4px) scale(0.75); /* Ensure label moves correctly */
+  transform: translate(16px, 4px) scale(0.75); 
 }
 
 .login-button {
