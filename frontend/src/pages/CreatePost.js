@@ -18,9 +18,9 @@ export default function CreatePost() {
 
     function handleFileChange(ev) {
         const file = ev.target.files[0];
-        setFiles(ev.target.files);
+        setFiles(ev.target.files); //
         if (file) {
-            setPreview(URL.createObjectURL(file));
+            setPreview(URL.createObjectURL(file)); //
         }
     }
 
